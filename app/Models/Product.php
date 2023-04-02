@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'quantity',
+        'price',
+        'image',
+        'description',
+    ];
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
