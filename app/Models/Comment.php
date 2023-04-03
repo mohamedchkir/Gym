@@ -15,15 +15,20 @@ class Comment extends Model
         'programme_id',
         'user_id',
     ];
+
+    // public function product()
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
+    // public function programme()
     public function programme()
     {
         return $this->belongsTo(Programme::class);
     }
+
+    //public function user()------->user
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -17,6 +17,7 @@ class Material extends Model
         'description',
     ];
 
+    // public function user()--------> admin
     public function user()
     {
         return $this->belongsTo(User::class);
