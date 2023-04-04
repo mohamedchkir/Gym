@@ -14,8 +14,17 @@ class Programme extends Model
         'image',
         'user_id',
     ];
+
+    // public function comments()
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
+
+    // public function user() ------> coatch
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
