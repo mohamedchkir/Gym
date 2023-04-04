@@ -19,7 +19,7 @@ class ProgrammeFactory extends Factory
         return [
             'title' => $this->faker->name,
             'content' => $this->faker->text,
-            'image' => $this->faker->image,
+            'image' => $this->faker->imageUrl,
             'user_id' => $this->faker->numberBetween(1, 10),
         ];
     }

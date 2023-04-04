@@ -16,6 +16,8 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $products = Product::all();
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -26,6 +28,7 @@ class ProductController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -37,6 +40,12 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         //
+        $product = new Product();
+        $product->name = $request->name;
+        $product->quantity = $request->quantity;
+        $product->price = $request->price;
+        $product->description = $request->description;
+        $product->save();
     }
 
     /**
@@ -48,6 +57,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
+
     }
 
     /**
@@ -59,6 +69,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         //
+
     }
 
     /**
@@ -71,6 +82,12 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         //
+        $product->name = $request->name;
+        $product->quantity = $request->quantity;
+        $product->price = $request->price;
+        $product->description = $request->description;
+        $product->save();
+
     }
 
     /**
@@ -82,5 +99,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+        $product->delete();
     }
 }

@@ -16,6 +16,8 @@ class ProgrammeController extends Controller
     public function index()
     {
         //
+        $programmes = Programme::all();
+        return view('programmes.index', compact('programmes'));
     }
 
     /**
@@ -26,6 +28,7 @@ class ProgrammeController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -37,6 +40,11 @@ class ProgrammeController extends Controller
     public function store(StoreProgrammeRequest $request)
     {
         //
+        $programme = new Programme();
+        $programme->name = $request->name;
+        $programme->description = $request->description;
+        $programme->save();
+        return redirect()->route('programmes.index');
     }
 
     /**
@@ -48,6 +56,8 @@ class ProgrammeController extends Controller
     public function show(Programme $programme)
     {
         //
+        return view('programmes.show', compact('programme'));
+
     }
 
     /**
@@ -71,6 +81,10 @@ class ProgrammeController extends Controller
     public function update(UpdateProgrammeRequest $request, Programme $programme)
     {
         //
+        $programme->name = $request->name;
+        $programme->description = $request->description;
+        $programme->save();
+        return redirect()->route('programmes.index');
     }
 
     /**
@@ -82,5 +96,6 @@ class ProgrammeController extends Controller
     public function destroy(Programme $programme)
     {
         //
+        $programme->delete();
     }
 }
