@@ -58,10 +58,6 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'edit users']);
         Permission::create(['name' => 'delete users']);
 
-
-
-
-
         // // Role Permissions
         // Permission::create(['name' => 'view roles']);
         // Permission::create(['name' => 'create roles']);
@@ -76,15 +72,20 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'edit permissions']);
         Permission::create(['name' => 'delete permissions']);
 
+        //payement Permissions
+        Permission::create(['name' => 'make payements']);
+
 
         // Create Roles
         $adminRole = Role::create(['name' => 'admin']);
         $coachRole = Role::create(['name' => 'coach']);
         $userRole = Role::create(['name' => 'user']);
 
+
+
         // Assign Permissions to Roles
         $adminRole->syncPermissions(Permission::all());
         $coachRole->syncPermissions(['view Coachs', 'delete Coachs', 'edit Coachs','view Programme', 'create Programme' ,'edit Programme','delete Programme']);
-        $userRole->syncPermissions(['view Coachs', 'view Programme','view Comments', 'create Comments', 'edit Comments', 'delete Comments', 'view Product']);
+        $userRole->syncPermissions(['view Coachs', 'view Programme','view Comments', 'create Comments', 'edit Comments', 'delete Comments', 'view Product','make payements']);
     }
 }
