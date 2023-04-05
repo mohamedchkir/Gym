@@ -27,4 +27,10 @@ class Product extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // public function checkouts()
+    public function checkouts()
+    {
+        return $this->belongsToMany(Checkout::class);
+    }
 }
