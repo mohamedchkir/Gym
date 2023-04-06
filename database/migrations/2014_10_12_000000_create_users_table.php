@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('image')->nullable();
             $table->string('phone')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

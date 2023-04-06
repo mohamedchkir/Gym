@@ -16,6 +16,8 @@ class CommentController extends Controller
     public function index()
     {
         //
+        $comments = Comment::all();
+        return view('comments.index', compact('comments'));
     }
 
     /**
@@ -36,7 +38,14 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+        //store comment for a user to a product or programme
+        $comment = new Comment();
+        $comment->user_id = $request->user_id;
+        $comment->product_id = $request->product_id;
+        $comment->programme_id = $request->programme_id;
+        $comment->text = $request->text;
+        $comment->save();
+        return redirect()->back();
     }
 
     /**
@@ -59,6 +68,7 @@ class CommentController extends Controller
     public function edit(Comment $comment)
     {
         //
+
     }
 
     /**
@@ -70,7 +80,13 @@ class CommentController extends Controller
      */
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        //
+        //update comment for a user to a product or programme
+        $comment->user_id = $request->user_id;
+        $comment->product_id = $request->product_id;
+        $comment->programme_id = $request->programme_id;
+        $comment->text = $request->text;
+        $comment->save();
+        return redirect()->back();
     }
 
     /**
@@ -81,6 +97,9 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        //delete comment for a user to a product or programme
+        $comment->delete();
+        return redirect()->back();
+
     }
 }
