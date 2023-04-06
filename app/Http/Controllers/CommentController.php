@@ -67,7 +67,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        //
+        //edit comment for a user to a product or programme
 
     }
 

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
                 MaterialSeeder::class,
                 ProductSeeder::class,
                 CommentSeeder::class,
+                RolesAndPermissionsSeeder::class,
         ]);
     }
 }

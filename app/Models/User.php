@@ -74,4 +74,15 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class, 'product_user');
     }
 
+
+
+
+
+
+    public function profilePhoto()
+{
+    return $this->morphOne(ProfilePhoto::class, 'imageable');
+}
+
+
 }
