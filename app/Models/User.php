@@ -68,6 +68,10 @@ class User extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
-
+    // public function productPayment()
+    public function productPayment()
+    {
+        return $this->belongsToMany(Product::class, 'product_user');
+    }
 
 }

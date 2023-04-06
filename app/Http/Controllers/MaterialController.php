@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Material;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreMaterialRequest;
 use App\Http\Requests\UpdateMaterialRequest;
 
@@ -38,13 +40,27 @@ class MaterialController extends Controller
      */
     public function store(StoreMaterialRequest $request)
     {
-        //
+        //image upload
+        $material_image = $request->file('image');
+        $name_gen = hexdec(uniqid());
+        $img_ext = strtolower($material_image->getClientOriginalExtension());
+        $img_name = $name_gen . '.' . $img_ext;
+        $location = 'img/materials/';
+        $last_img = $location . $img_name;
+        $material_image->move($location, $img_name);
+
+
+        //store data
         $material = new Material();
         $material->name = $request->name;
-        $material->quantity = $request->quantity;
         $material->price = $request->price;
+        $material->quantity = $request->quantity;
+        $material->image = $request->$last_img;
         $material->description = $request->description;
         $material->save();
+
+        return redirect()->route('materials.index');
+
     }
 
     /**
@@ -78,12 +94,31 @@ class MaterialController extends Controller
      */
     public function update(UpdateMaterialRequest $request, Material $material)
     {
-        //
-        $material->name = $request->name;
-        $material->quantity = $request->quantity;
-        $material->price = $request->price;
-        $material->description = $request->description;
-        $material->save();
+        //image upload
+        $image = $material->image;
+
+
+
+
+        //check if image is not null and update data
+        if ($request->file('image')) {
+            Storage::delete($material->image);
+            $image = $request->file('image')->move('public/materials');
+            $material->name = $request->name;
+            $material->price = $request->price;
+            $material->quantity = $request->quantity;
+            $material->image = $request->$image;
+            $material->description = $request->description;
+            $material->save();
+            return redirect()->route('admin.materials.index')->with('warning', 'Update successfully');
+        } else {
+            $material->name = $request->name;
+            $material->price = $request->price;
+            $material->quantity = $request->quantity;
+            $material->description = $request->description;
+            $material->save();
+            return redirect()->route('admin.materials.index')->with('warning', 'Update successfully');
+        }
     }
 
     /**
@@ -94,7 +129,9 @@ class MaterialController extends Controller
      */
     public function destroy(Material $material)
     {
-        //
+
+        Storage::delete($material->image);
         $material->delete();
+        return to_route('admin.materials.index')->with('danger', 'Material Deleted successfully');
     }
 }
