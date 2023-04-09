@@ -4,15 +4,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>GYM</title>
 
         <!-- Fonts -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Tailwind -->
+         <!-- Tailwind-->
         <script src="https://cdn.tailwindcss.com"></script>
+        <!-- AOS (animate on scroll) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- Styles -->
-
         <style>
             body {
                 font-family: 'Nunito', sans-serif;
@@ -25,20 +26,7 @@
  <nav
  class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg"
 >
-<div class="">
-    @if (Route::has('login'))
-        <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-            @auth
-                <a href="{{ url('/dashboard') }}" class="text-sm text-gray-50 dark:text-gray-500 ">Dashboard</a>
-            @else
-                <a href="{{ route('login') }}" class="text-sm text-gray-50 dark:text-gray-500 ">Log in</a>
 
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-50 dark:text-gray-500 ">Register</a>
-                @endif
-            @endauth
-        </div>
-    @endif
  <div
    class="container px-4 mx-auto flex flex-wrap items-center justify-between"
  >
@@ -48,9 +36,9 @@
      <a
        class="text-lg font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase text-white"
        href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
-       >GYM MASTER</a
+       ><span class="text-red-500"> GYM</span> MASTER</a
      ><button
-       class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+ class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
        type="button"
        onclick="toggleNavbar('example-collapse-navbar')"
      >
@@ -61,41 +49,29 @@
      class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none hidden"
      id="example-collapse-navbar"
    >
-     <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
-       <!-- Icon 1 -->
+
+   <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
+       <!-- Dashboard -->
        <li class="flex items-center">
-         <a
-           class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-           href="#pablo"
-           ><i
-             class="text-orange-500 fab fa-facebook text-lg leading-lg"
-           ></i
-           ><span class="lg:hidden inline-block ml-2">Share</span></a
-         >
+           @if (Route::has('login'))
+           @auth
+        <a href="{{ url('/dashboard') }}" class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">Dashboard</a>
        </li>
-       <!-- Icon 2 -->
+       <!-- Login -->
        <li class="flex items-center">
-         <a
-           class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-           href="#pablo"
-           ><i
-             class="text-orange-500 fab fa-twitter text-lg leading-lg"
-           ></i
-           ><span class="lg:hidden inline-block ml-2">Tweet</span></a
-         >
+           @else
+            <a href="{{ route('login') }}" class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">Log in</a>
        </li>
-       <!-- Icon 3 -->
+       <!-- Register -->
        <li class="flex items-center">
-         <a
-           class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-           href="#pablo"
-           ><i
-             class="text-orange-500 fab fa-linkedin text-lg leading-lg"
-           ></i
-           ><span class="lg:hidden inline-block ml-2">Profile</span></a
-         >
-       </li>
-     </ul>
+           @if (Route::has('register'))
+            <a href="{{ route('register') }}" class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">Register</a>
+            @endif
+        </li>
+
+        @endauth
+        @endif
+    </ul>
    </div>
  </div>
 </nav>
@@ -106,23 +82,16 @@
    class="relative pt-16 pb-32 flex content-center items-center justify-center"
    style="min-height: 95vh"
  >
-   <div
-     class="absolute top-0 w-full h-full bg-top bg-cover"
-     style="
-       background-image: url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80');
-     "
-   >
-     <span
-       id="blackOverlay"
-       class="w-full h-full absolute opacity-75 bg-black"
-     ></span>
+   <div class="absolute top-0 w-full h-full bg-top bg-cover" style="
+       background-image: url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80');">
+     <span id="blackOverlay"class="w-full h-full absolute opacity-75 bg-black"></span>
    </div>
    <div class="container relative mx-auto" data-aos="fade-in">
      <div class="items-center flex flex-wrap">
        <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
          <div>
            <h1 class="text-white font-semibold text-5xl">
-             Feel The <span class="text-orange-500">Power</span>
+             Feel The <span class="text-red-500">Power</span>
            </h1>
            <p class="mt-4 text-lg text-gray-300">
              Welcome to The Power Room. We are a fitness and training
@@ -131,8 +100,8 @@
            </p>
            <a
              href="#"
-             class="bg-transparent hover:bg-orange-500 text-orange-500 font-semibold hover:text-white p-4 border border-orange-500 hover:border-transparent rounded inline-block mt-5 cursor-pointer"
-             >Download Brochure</a
+             class="bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white p-4 border border-red-500 hover:border-transparent rounded inline-block mt-5 cursor-pointer"
+             >Join Us</a
            >
          </div>
        </div>
@@ -175,7 +144,7 @@
          data-aos="fade-left"
        >
          <div class="md:pr-12">
-           <small class="text-orange-500">About our gym</small>
+           <small class="text-red-500 ">About our gym</small>
            <h3 class="text-4xl uppercase font-bold">Safe Body Building</h3>
            <p class="mt-4 text-lg leading-relaxed">
              The extension comes with three pre-built pages to help you get
@@ -187,7 +156,7 @@
                <div class="flex items-center">
                  <div>
                    <span
-                     class="font-semibold inline-block py-3 mr-3 text-orange-500"
+                     class="font-semibold inline-block py-3 mr-3 text-red-500"
                      ><i class="fas fa-dumbbell fa-2x"></i
                    ></span>
                  </div>
@@ -477,5 +446,20 @@
 </footer>
 
     </body>
-    
+        <!-- AOS Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+    integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
+    crossorigin="anonymous"></script>
+        <!-- AOS Script -->
+    <script>
+function toggleNavbar(collapseID) {
+    document.getElementById(collapseID).classList.toggle('hidden')
+    document.getElementById(collapseID).classList.toggle('block')
+  }
+
+        AOS.init({
+            delay: 200,
+            duration: 1200,
+            once: false,})
+    </script>
 </html>
