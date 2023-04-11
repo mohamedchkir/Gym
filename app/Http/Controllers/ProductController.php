@@ -43,23 +43,36 @@ class ProductController extends Controller
         //
 
         //image upload
-        $product_image = $request->file('image');
-        $name_gen = hexdec(uniqid());
-        $img_ext = strtolower($product_image->getClientOriginalExtension());
-        $img_name = $name_gen . '.' . $img_ext;
-        $location = 'img/products/';
-        $last_img = $location . $img_name;
-        $product_image->move($location, $img_name);
+        // $product_image = $request->file('image');
+        // $name_gen = hexdec(uniqid());
+        // $img_ext = strtolower($product_image->getClientOriginalExtension());
+        // $img_name = $name_gen . '.' . $img_ext;
+        // $location = 'img/products/';
+        // $last_img = $location . $img_name;
+        // $product_image->move($location, $img_name);
+        // dd($request->all());
+        $name = '';
+        $file = $request->image;
+        $name = $file->getClientOriginalName();
+        $file->move(public_path('images'), $name);
 
-        $product = new Product();
-        $product->name = $request->name;
-        $product->quantity = $request->quantity;
-        $product->price = $request->price;
-        $product->image = $request->$last_img;
-        $product->description = $request->description;
-        $product->save();
+        // $product = new Product();
+        // $product->name = $request->name;
+        // $product->quantity = $request->quantity;
+        // $product->price = $request->price;
+        // $product->image = 'images/' . $name;
+        // $product->description = $request->description;
+        // $product->save();
 
-        return redirect()->route('products.index')->with('success', 'Product created successfully');
+        Product::create([
+            'name' => $request->name,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'image' => 'images/' . $name,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->back()->with('success', 'Product created successfully');
     }
 
     /**
