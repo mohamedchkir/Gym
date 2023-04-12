@@ -21,6 +21,8 @@ Route::get('/', function () {
     return view('product');
 });
 
+Route::get('/product/{id}', [ProductController::class, 'show']);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -37,5 +39,8 @@ Route::put('/product/{product}', [ProductController::class, 'update']);
 Route::delete('/product/{product}', [ProductController::class, 'destroy']);
 
 Route::get('materials', [MaterialController::class, 'index']);
+Route::post('/material', [MaterialController::class, 'store']);
+Route::put('/material/{material}', [MaterialController::class, 'update']);
+Route::delete('/material/{material}', [MaterialController::class, 'destroy']);
 
 require __DIR__.'/auth.php';

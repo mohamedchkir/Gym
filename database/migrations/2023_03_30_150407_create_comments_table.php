@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('text');
             $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("product_id");
-            $table->unsignedBigInteger("programme_id");
+            $table->unsignedBigInteger("product_id")->nullable()->delete('cascade');
+            $table->unsignedBigInteger("programme_id")->nullable()->delete('cascade');
             $table->foreign("programme_id")->references("id")->on("programmes");
             $table->foreign("product_id")->references("id")->on("products");
             $table->foreign("user_id")->references("id")->on("users");
