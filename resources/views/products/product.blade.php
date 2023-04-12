@@ -100,7 +100,7 @@
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="w-32 p-4">
                     <img src="
-                    {{ asset('products') }}" alt="Apple Watch">
+                    {{ asset('assets/images/products') }}" alt="Apple Watch">
                 </td>
                 <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                    <div class="pl-3">

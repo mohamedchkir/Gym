@@ -60,7 +60,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->quantity = $request->quantity;
         $product->price = $request->price;
-        $product->image = 'images/' . $last_img;
+        $product->image = $last_img;
         $product->description = $request->description;
         $product->save();
 
@@ -119,7 +119,7 @@ class ProductController extends Controller
         //check if image is not null and update data
         if ($request->file('image')) {
             Storage::delete($product->image);
-            $image = $request->file('image')->move('public/assets/images/products');
+            $image = $request->file('image')->move('assets/images/products');
             $product->name = $request->name;
             $product->price = $request->price;
             $product->quantity = $request->quantity;
