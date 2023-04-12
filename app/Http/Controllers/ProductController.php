@@ -52,9 +52,9 @@ class ProductController extends Controller
         // $last_img = $location . $img_name;
         // $product_image->move($location, $img_name);
         // dd($request->all());
-        $name = '';
 
         // $image = $product->image;
+        $name = '';
         $file = $request->image;
         $name = $file->getClientOriginalName();
         $file->move(public_path('assets/images/products'), $name);

@@ -41,23 +41,26 @@ class MaterialController extends Controller
     public function store(StoreMaterialRequest $request)
     {
         //image upload
-        $material_image = $request->file('image');
-        $name_gen = hexdec(uniqid());
-        $img_ext = strtolower($material_image->getClientOriginalExtension());
-        $img_name = $name_gen . '.' . $img_ext;
-        $location = 'assets/images/materials/';
-        $last_img = $location . $img_name;
+        // $material_image = $request->file('image');
+        // $name_gen = hexdec(uniqid());
+        // $img_ext = strtolower($material_image->getClientOriginalExtension());
+        // $img_name = $name_gen . '.' . $img_ext;
+        // $location = 'assets/images/materials/';
+        // $last_img = $location . $img_name;
         // $material_image->move($location, $img_name);
-
+        $name = '';
+        $file = $request->image;
+        $name = $file->getClientOriginalName();
+        $file->move(public_path('assets/images/materials'), $name);
 
         //store data
-        $material = new Material();
-        $material->name = $request->name;
-        $material->price = $request->price;
-        $material->quantity = $request->quantity;
-        $material->image = $request->$last_img;
-        $material->description = $request->description;
-        $material->save();
+        Material::create([
+            'name' => $request->name,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'image' => 'assets/images/materials/' . $name,
+            'description' => $request->description,
+        ]);
 
         return redirect()->back()->with('success', 'Material Added Successfully');
 
@@ -101,25 +104,40 @@ class MaterialController extends Controller
         $image = $material->image;
 
         //check if image is not null and update data
-        if ($request->file('image')) {
-            Storage::delete($material->image);
-            $image = $request->file('image')->move('assets/images/materials');
-            $material->name = $request->name;
+        // if ($request->file('image')) {
+        //     Storage::delete($material->image);
+        //     $image = $request->file('image')->move('assets/images/materials');
+        //     $material->name = $request->name;
+        //     $material->price = $request->price;
+        //     $material->quantity = $request->quantity;
+        //     $material->image = $request->$image;
+        //     $material->description = $request->description;
+        //     $material->save();
+        //     return redirect()->route('admin.materials.index')->with('warning', 'Update successfully');
+        // } else {
+        //     $material->name = $request->name;
+        //     $material->price = $request->price;
+        //     $material->quantity = $request->quantity;
+        //     $material->description = $request->description;
+        //     $material->save();
+        //     return redirect()->route('admin.materials.index')->with('warning', 'Update successfully');
+        // }
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $image = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/products'), $image);
+            $image='assets/images/products/'.$image;
+                }
+        $material->name = $request->name;
+        $material->image = $image;
             $material->price = $request->price;
             $material->quantity = $request->quantity;
-            $material->image = $request->$image;
             $material->description = $request->description;
             $material->save();
-            return redirect()->route('admin.materials.index')->with('warning', 'Update successfully');
-        } else {
-            $material->name = $request->name;
-            $material->price = $request->price;
-            $material->quantity = $request->quantity;
-            $material->description = $request->description;
-            $material->save();
-            return redirect()->route('admin.materials.index')->with('warning', 'Update successfully');
-        }
+            return redirect()->back()->with('warning', 'Update successfully');
+
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -129,8 +147,7 @@ class MaterialController extends Controller
      */
     public function destroy(Material $material)
     {
-
-        Storage::delete($material->image);
+        
         $material->delete();
         return redirect()->back()->with('danger','Material deleted successfully');
     }
