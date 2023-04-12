@@ -47,7 +47,7 @@ class MaterialController extends Controller
         $img_name = $name_gen . '.' . $img_ext;
         $location = 'assets/images/materials/';
         $last_img = $location . $img_name;
-        $material_image->move($location, $img_name);
+        // $material_image->move($location, $img_name);
 
 
         //store data

@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Termwind\Components\Dd;
 
 class ProductController extends Controller
 {
@@ -38,39 +39,41 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(StoreProductRequest $request , Product $product)
     {
         //
 
-        //image upload
-        $product_image = $request->file('image');
-        $name_gen = hexdec(uniqid());
-        $img_ext = strtolower($product_image->getClientOriginalExtension());
-        $img_name = $name_gen . '.' . $img_ext;
-        $location = 'assets/images/products/';
-        $last_img = $location . $img_name;
+        // //image upload
+        // $product_image = $request->file('image');
+        // $name_gen = hexdec(uniqid());
+        // $img_ext = strtolower($product_image->getClientOriginalExtension());
+        // $img_name = $name_gen . '.' . $img_ext;
+        // $location = 'assets/images/products/';
+        // $last_img = $location . $img_name;
         // $product_image->move($location, $img_name);
         // dd($request->all());
-        // $name = '';
-        // $file = $request->image;
-        // $name = $file->getClientOriginalName();
-        // $file->move(public_path('images'), $name);
+        $name = '';
 
-        $product = new Product();
-        $product->name = $request->name;
-        $product->quantity = $request->quantity;
-        $product->price = $request->price;
-        $product->image = $last_img;
-        $product->description = $request->description;
-        $product->save();
+        // $image = $product->image;
+        $file = $request->image;
+        $name = $file->getClientOriginalName();
+        $file->move(public_path('assets/images/products'), $name);
 
-        // Product::create([
-        //     'name' => $request->name,
-        //     'quantity' => $request->quantity,
-        //     'price' => $request->price,
-        //     'image' => 'images/' . $name,
-        //     'description' => $request->description,
-        // ]);
+        // $product = new Product();
+        // $product->name = $request->name;
+        // $product->quantity = $request->quantity;
+        // $product->price = $request->price;
+        // $product->image = $last_img;
+        // $product->description = $request->description;
+        // $product->save();
+
+        Product::create([
+            'name' => $request->name,
+            'quantity' => $request->quantity,
+            'price' => $request->price,
+            'image' => 'assets/images/products/' . $name,
+            'description' => $request->description,
+        ]);
 
         return redirect()->back()->with('success', 'Product created successfully');
     }
@@ -117,24 +120,39 @@ class ProductController extends Controller
 
 
         //check if image is not null and update data
-        if ($request->file('image')) {
-            Storage::delete($product->image);
-            $image = $request->file('image')->move('assets/images/products');
-            $product->name = $request->name;
-            $product->price = $request->price;
-            $product->quantity = $request->quantity;
-            $product->image = $request->$image;
-            $product->description = $request->description;
-            $product->save();
-            return redirect()->back()->with('warning', 'Update successfully');
-        } else {
-            $product->name = $request->name;
-            $product->price = $request->price;
-            $product->quantity = $request->quantity;
-            $product->description = $request->description;
-            $product->save();
-            return redirect()->back()->with('warning', 'Update successfully');
+        // if ($request->file('image')) {
+        //     Storage::delete($product->image);
+        //     $image = $request->file('image')->move('assets/images/products');
+        //     $product->name = $request->name;
+        //     $product->price = $request->price;
+        //     $product->quantity = $request->quantity;
+        //     $product->image = $request->$image;
+        //     $product->description = $request->description;
+        //     $product->save();
+        //     return redirect()->back()->with('warning', 'Update successfully');
+        // } else {
+        //     $product->name = $request->name;
+        //     $product->price = $request->price;
+        //     $product->quantity = $request->quantity;
+        //     $product->description = $request->description;
+        //     $product->save();
+        //     return redirect()->back()->with('warning', 'Update successfully');
+        // }
+        //if request has image
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $image = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/products'), $image);
+            $image='assets/images/products/'.$image;
+
         }
+        $product->name = $request->name;
+        $product->image = $image;
+            $product->price = $request->price;
+            $product->quantity = $request->quantity;
+            $product->description = $request->description;
+            $product->save();
+            return redirect()->back()->with('warning', 'Update successfully');
 
     }
 

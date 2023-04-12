@@ -93,7 +93,7 @@
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="w-32 p-4">
                     <img src="
-                    {{ asset('assets/images/products') }}" alt="Apple Watch">
+                    {{ $product->image }}" alt="Apple Watch">
                 </td>
                 <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                    <div class="pl-3">
@@ -170,12 +170,14 @@
             },
             success: function(data) {
                 $('#user_id').val(data.id);
-                $('#product_form').attr('method', 'PUT');
+                $('#product_form').append('@method('PUT')');
                 $('#product_form').attr('action', '/product/' + data.id);
                 $('#name').val(data.name);
                 $('#quantity').val(data.quantity);
                 $('#price').val(data.price);
                 // $('#image').val(data.image);
+                // set image to the image tag
+                $('#image').attr('src', data.image);
                 $('#description').val(data.description);
 
 
