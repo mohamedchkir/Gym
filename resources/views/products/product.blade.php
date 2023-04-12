@@ -47,7 +47,10 @@
                     </div>
                     <!-- Modal footer -->
                 <div class="items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700">
-                    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">Add product</button>
+                    <button id="add-product-btn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">Add product</button>
+                </div>
+                <div class="items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700">
+                    <button id="update-product-btn" class="text-white bg-yellow-200 hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800" type="submit">Update</button>
                 </div>
                 </form></div>
 
@@ -62,7 +65,7 @@
 
     <div class="sm:flex">
         <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
-            <button type="button" data-modal-toggle="product-modal" class="mb-3 inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button type="button" data-modal-toggle="product-modal" onclick="addProduct()" class="mb-3 inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                 Add product
             </button>
@@ -132,8 +135,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {{-- include bootstrap --}}
 <script>
+
+    function addProduct() {
+        $('#product_form').attr('action', '/product');
+        $('#product_form').trigger("reset");
+
+        //hide
+document.getElementById('update-product-btn').style.visibility = 'hidden';
+
+//reveal
+document.getElementById('add-product-btn').style.visibility = 'visible';
+    }
+
+
     // get product information using ajax
     function editeProduct(id) {
+        //hide
+            document.getElementById('add-product-btn').style.visibility = 'hidden';
+        //reveal
+            document.getElementById('update-product-btn').style.visibility = 'visible';
+
         $.ajax({
             url: '/product/' + id,
             type: 'GET',
