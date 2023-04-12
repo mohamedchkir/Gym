@@ -20,9 +20,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('image')->nullable();
-            $table->string('phone')->nullable();
+            $table->string('phone')->nullable()->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->rememberToken();
             $table->timestamps();
         });
