@@ -172,6 +172,8 @@
                 $('#name').val(data.name);
                 $('#quantity').val(data.quantity);
                 $('#price').val(data.price);
+                $('#image').attr('src', data.image);
+
                 // $('#image').val(data.image);
                 $('#description').val(data.description);
 

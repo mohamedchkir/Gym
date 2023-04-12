@@ -175,8 +175,6 @@
                 $('#name').val(data.name);
                 $('#quantity').val(data.quantity);
                 $('#price').val(data.price);
-                // $('#image').val(data.image);
-                // set image to the image tag
                 $('#image').attr('src', data.image);
                 $('#description').val(data.description);
 
