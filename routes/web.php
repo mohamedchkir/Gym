@@ -41,7 +41,7 @@ Route::get('/product/{id}', [ProductController::class, 'show']);
 
                // Route for material
 Route::get('materials', [MaterialController::class, 'index']);
-Route::post('/material', [MaterialController::class, 'store']);
+Route::post('/add/material', [MaterialController::class, 'store']);
 Route::put('/material/{material}', [MaterialController::class, 'update']);
 Route::delete('/material/{material}', [MaterialController::class, 'destroy'])->name('material.destroy');
 Route::get('/material/{id}', [MaterialController::class, 'show']);
