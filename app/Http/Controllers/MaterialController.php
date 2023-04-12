@@ -45,7 +45,7 @@ class MaterialController extends Controller
         $name_gen = hexdec(uniqid());
         $img_ext = strtolower($material_image->getClientOriginalExtension());
         $img_name = $name_gen . '.' . $img_ext;
-        $location = 'img/materials/';
+        $location = 'assets/images/materials/';
         $last_img = $location . $img_name;
         $material_image->move($location, $img_name);
 
@@ -59,7 +59,7 @@ class MaterialController extends Controller
         $material->description = $request->description;
         $material->save();
 
-        return redirect()->route('materials.index');
+        return redirect()->back()->with('success', 'Material Added Successfully');
 
     }
 
@@ -69,9 +69,12 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function show(Material $material)
+    public function show($id)
     {
-        //
+        $material=Material::find($id);
+        // return json response to ajax
+        return response()->json($material);
+
     }
 
     /**
@@ -97,13 +100,10 @@ class MaterialController extends Controller
         //image upload
         $image = $material->image;
 
-
-
-
         //check if image is not null and update data
         if ($request->file('image')) {
             Storage::delete($material->image);
-            $image = $request->file('image')->move('public/materials');
+            $image = $request->file('image')->move('assets/images/materials');
             $material->name = $request->name;
             $material->price = $request->price;
             $material->quantity = $request->quantity;
@@ -132,6 +132,6 @@ class MaterialController extends Controller
 
         Storage::delete($material->image);
         $material->delete();
-        return to_route('admin.materials.index')->with('danger', 'Material Deleted successfully');
+        return redirect()->back()->with('danger','Material deleted successfully');
     }
 }
