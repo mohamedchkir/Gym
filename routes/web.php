@@ -53,5 +53,12 @@ Route::put('/comment/{comment}', [CommentController::class, 'update']);
 Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
 Route::get('/comment/{id}', [CommentController::class, 'show']);
 
+                // Route for user
+Route::get('users', [UserController::class, 'index']);
+Route::post('/user', [UserController::class, 'store']);
+Route::put('/user/{user}', [UserController::class, 'update']);
+Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+Route::get('/user/{id}', [UserController::class, 'show']);
+
 
 require __DIR__.'/auth.php';
