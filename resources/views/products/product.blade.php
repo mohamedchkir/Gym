@@ -48,10 +48,9 @@
                     <!-- Modal footer -->
                 <div class="items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700">
                     <button id="add-product-btn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="submit">Add product</button>
-                </div>
-                <div class="items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700">
                     <button id="update-product-btn" class="text-white bg-yellow-200 hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800" type="submit">Update</button>
                 </div>
+
                 </form></div>
 
 
@@ -100,7 +99,8 @@
 
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="w-32 p-4">
-                    <img src="{{$product->image}}" alt="Apple Watch">
+                    <img src="
+                    {{ asset('storage/public/assets/images/products') }}" alt="Apple Watch">
                 </td>
                 <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                    <div class="pl-3">
@@ -133,18 +133,19 @@
     </table>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-{{-- include bootstrap --}}
+
 <script>
 
     function addProduct() {
+        $('#product_form').attr('method', 'POST');
         $('#product_form').attr('action', '/product');
         $('#product_form').trigger("reset");
 
         //hide
-document.getElementById('update-product-btn').style.visibility = 'hidden';
+        document.getElementById('update-product-btn').style.visibility = 'hidden';
 
-//reveal
-document.getElementById('add-product-btn').style.visibility = 'visible';
+        //reveal
+        document.getElementById('add-product-btn').style.visibility = 'visible';
     }
 
 
@@ -164,7 +165,8 @@ document.getElementById('add-product-btn').style.visibility = 'visible';
             },
             success: function(data) {
                 $('#user_id').val(data.id);
-                $('#product_form').attr('action', '/users/' + data.id);
+                $('#product_form').attr('method', 'PUT');
+                $('#product_form').attr('action', '/product/' + data.id);
                 $('#name').val(data.name);
                 $('#quantity').val(data.quantity);
                 $('#price').val(data.price);

@@ -43,34 +43,34 @@ class ProductController extends Controller
         //
 
         //image upload
-        // $product_image = $request->file('image');
-        // $name_gen = hexdec(uniqid());
-        // $img_ext = strtolower($product_image->getClientOriginalExtension());
-        // $img_name = $name_gen . '.' . $img_ext;
-        // $location = 'img/products/';
-        // $last_img = $location . $img_name;
+        $product_image = $request->file('image');
+        $name_gen = hexdec(uniqid());
+        $img_ext = strtolower($product_image->getClientOriginalExtension());
+        $img_name = $name_gen . '.' . $img_ext;
+        $location = 'assets/images/products/';
+        $last_img = $location . $img_name;
         // $product_image->move($location, $img_name);
         // dd($request->all());
-        $name = '';
-        $file = $request->image;
-        $name = $file->getClientOriginalName();
-        $file->move(public_path('images'), $name);
+        // $name = '';
+        // $file = $request->image;
+        // $name = $file->getClientOriginalName();
+        // $file->move(public_path('images'), $name);
 
-        // $product = new Product();
-        // $product->name = $request->name;
-        // $product->quantity = $request->quantity;
-        // $product->price = $request->price;
-        // $product->image = 'images/' . $name;
-        // $product->description = $request->description;
-        // $product->save();
+        $product = new Product();
+        $product->name = $request->name;
+        $product->quantity = $request->quantity;
+        $product->price = $request->price;
+        $product->image = 'images/' . $last_img;
+        $product->description = $request->description;
+        $product->save();
 
-        Product::create([
-            'name' => $request->name,
-            'quantity' => $request->quantity,
-            'price' => $request->price,
-            'image' => 'images/' . $name,
-            'description' => $request->description,
-        ]);
+        // Product::create([
+        //     'name' => $request->name,
+        //     'quantity' => $request->quantity,
+        //     'price' => $request->price,
+        //     'image' => 'images/' . $name,
+        //     'description' => $request->description,
+        // ]);
 
         return redirect()->back()->with('success', 'Product created successfully');
     }
@@ -119,21 +119,21 @@ class ProductController extends Controller
         //check if image is not null and update data
         if ($request->file('image')) {
             Storage::delete($product->image);
-            $image = $request->file('image')->move('public/products');
+            $image = $request->file('image')->move('public/assets/images/products');
             $product->name = $request->name;
             $product->price = $request->price;
             $product->quantity = $request->quantity;
             $product->image = $request->$image;
             $product->description = $request->description;
             $product->save();
-            return redirect()->route('admin.products.index')->with('warning', 'Update successfully');
+            return redirect()->back()->with('warning', 'Update successfully');
         } else {
             $product->name = $request->name;
             $product->price = $request->price;
             $product->quantity = $request->quantity;
             $product->description = $request->description;
             $product->save();
-            return redirect()->route('admin.products.index')->with('warning', 'Update successfully');
+            return redirect()->back()->with('warning', 'Update successfully');
         }
 
     }
