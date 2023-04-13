@@ -2,31 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
-        $users = User::all();
-        // dd($users);
-        return view('users.user', compact('users'));
+        // Get all users
+            $users = User::all();
 
+        // Get all roles
+            $roles = Role::all();
 
+        // Return view
+            return view('users.user', compact('users', 'roles'));
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -35,95 +33,76 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $name = '';
-        $file = $request->image;
-        $name = $file->getClientOriginalName();
-        $file->move(public_path('assets/images/users'), $name);
+        //store a new user
+        $user = User::create($request->all());
+        
+        // assign role  to user
+        $user->assignRole($request->role);
 
-
-        //store data
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'phone' => $request->phone,
-            'image' => 'assets/images/products/' . $name,
-            'created_at' => Carbon::now(),
-        ]);
+        // return view flash success message
+        return redirect()->back()->with('success', 'User created successfully');
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(string $id)
     {
         //
-        $user=User::find($id);
-        // return json response to ajax
-        return response()->json($user);
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(string $id)
     {
-        //
+        // return ajax response with user data and role of user
+        return response()->json([
+            'user' => User::find($id),
+            'role' => User::find($id)->roles->first()->name
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, string $id)
     {
-        //
-        $image = $request->image;
-        if ($request->hasFile('image')) {
-            $file = $request->image;
-            $image = $file->getClientOriginalName();
-            $file->move(public_path('assets/images/users'), $image);
-            $image='assets/images/users/'.$image;
+        // dd($request->all());
+        // get user
+        $user = User::find($id);
 
-        }
-            $user->name = $request->name;
-            $user->image = $image;
-            $user->email = $request->email;
-            $user->phone = $request->phone;
-            $user->password = $request->password;
-            $user->updated_at = Carbon::now();
-            $user->save();
-            return redirect()->back()->with('warning', 'Update successfully');
+        // get role
+        $role = Role::findByName($request->role);
 
+        // remove all roles
+        $user->removeRole($user->roles->first()->name);
 
+        // assign role
+        $user->assignRole($request->role);
+
+        // update user
+        $user->update($request->all());
+
+        // return view flash success message
+        return redirect()->back()->with('success', 'User updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(string $id)
     {
-        //
+        // get user
         $user = User::find($id);
+        // remove all roles
+        $user->removeRole($user->roles->first()->name);
+        // delete user
         $user->delete();
-
+        // return view flash success message
+        return redirect()->back()->with('success', 'User deleted successfully');
     }
 }

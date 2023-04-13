@@ -21,14 +21,14 @@
               </svg>
            </button>
            <a
-       class="text-lg font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase lg:px-4 text-black"
+       class="text-lg font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase lg:px-4 text-black dark:text-white"
        href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
        ><span class="text-red-500"> GYM</span> MASTER</a
      >
         </div>
         <div class="flex items-center">
             <div class="flex items-center ml-3">
-                <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mx-2">
                     <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                     </svg>
@@ -121,28 +121,25 @@
            </li>
            <li>
               <a href="coachs" class="{{request()->is('coachs') ? 'bg-gray-100 dark:bg-gray-700':'' }}  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path fill="#9B9B9B" d="M12,2c-3.3,0-6,2.7-6,6v2c0,3.3,2.7,6,6,6s6-2.7,6-6V8C18,4.7,15.3,2,12,2z M15,8c0,2.8-2.2,5-5,5s-5-2.2-5-5V7h2v1c0,2.2,1.8,4,4,4s4-1.8,4-4V7h2V8z M12,14c-1.7,0-3-1.3-3-3V9h6v2C15,12.7,13.7,14,12,14z"/>
                   </svg>
 
 
-                 <span class="flex-1 ml-3 whitespace-nowrap">COACHS</span>
+                 <span class="flex-1 ml-3 whitespace-nowrap">Coachs</span>
               </a>
            </li>
-        </ul>
-    </div>
-     <div>
            <ul class="space-y-2 font-medium">
-                <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path></svg>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Log Out</span>
+               <li>
+                   <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-red-500 dark:hover:bg-red-500">
+                       <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path></svg>
+                       <span class="flex-1 ml-3 whitespace-nowrap">Log Out</span>
                     </a>
                 </li>
-         </ul>
-     </div>
+            </ul>
+        </div>
   </aside>
-  <main class="p-4 sm:ml-64 sm:my-3">
+  <main class="p-4 sm:ml-64 sm:mt-20 md:mt-20 lg:mt-20 sm:my-3">
 {{ $slot }}
 </main>
 </body>

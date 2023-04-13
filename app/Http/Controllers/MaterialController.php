@@ -136,6 +136,8 @@ class MaterialController extends Controller
             $material->save();
             return redirect()->back()->with('warning', 'Update successfully');
 
+            
+
     }
 
 
@@ -147,7 +149,7 @@ class MaterialController extends Controller
      */
     public function destroy(Material $material)
     {
-        
+
         $material->delete();
         return redirect()->back()->with('danger','Material deleted successfully');
     }
