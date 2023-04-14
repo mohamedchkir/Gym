@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger("user_id")->nullable();
             $table->unsignedBigInteger("product_id")->nullable();
             $table->unsignedBigInteger("programme_id")->nullable();
-            $table->foreign("programme_id")->references("id")->on("programmes")->onDelete("cascade");
-            $table->foreign("product_id")->references("id")->on("products")->onDelete("cascade");
+            $table->foreign("programme_id")->references("id")->on("programmes");
+            $table->foreign("product_id")->references("id")->on("products");
             $table->foreign("user_id")->references("id")->on("users");
             $table->timestamps();
         });

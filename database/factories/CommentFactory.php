@@ -18,10 +18,10 @@ class CommentFactory extends Factory
     {
         return [
             'text' => $this->faker->text,
-            'user_id' => $this->faker->numberBetween(1, 10),
-            'product_id' => $this->faker->numberBetween(1, 10),
-            'programme_id' => $this->faker->numberBetween(1, 10),
-            'user_id' => $this->faker->numberBetween(1, 10),
+            'user_id' => $this->faker->numberBetween(1, 2),
+            'product_id' => $this->faker->numberBetween(1, 2),
+            'programme_id' => $this->faker->numberBetween(1, 2),
+            'user_id' => $this->faker->numberBetween(1, 2),
         ];
     }
 }
