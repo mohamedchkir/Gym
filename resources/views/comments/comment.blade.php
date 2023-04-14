@@ -1,0 +1,93 @@
+<x-dashboard-layout>
+   {{-- THE HEAD OF THE TABLE  --}}
+
+   <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
+    <div class="w-full mb-1">
+        <div class="mb-4">
+            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">All comments</h1>
+        </div>
+        <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700">
+            <div class="flex items-center mb-4 sm:mb-0">
+                <form class="sm:pr-3" action="#" method="GET">
+                    <label for="products-search" class="sr-only">Search</label>
+                    <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
+                        <input type="text" name="email" id="products-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for products">
+                    </div>
+                </form>
+
+            </div>
+            <button id="createProductButton" onclick="addcomment()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button" data-drawer-target="comment-modal" data-drawer-show="comment-modal" aria-controls="comment-modal" data-drawer-placement="right">
+                Add new product
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Name & Email
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Phone
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Status
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Add date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($comments as $comment)
+
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    <img class="w-10 h-10 rounded-full" src="{{$comment->image}}" alt="Jese image">
+                    <div class="pl-3">
+                        <div class="text-base font-semibold">{{$comment->name}}</div>
+                        <div class="font-normal text-gray-500">{{$comment->email}}</div>
+                    </div>
+                </th>
+                <td class="px-6 py-4">
+                    {{$comment->phone}}
+                </td>
+                <td class="px-6 py-4">
+                    <div class="flex items-center">
+                        <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Online
+                    </div>
+                </td>
+                <td class="px-6 py-4">
+                    {{$comment->created_at->diffForHumans()}}
+                </td>
+                <td class="p-4 space-x-2 whitespace-nowrap">
+
+                    <form action="{{ route('comment.destroy', $comment->id) }}"
+                        class="inline-flex items-center  "
+                        method="POST" onsubmit="return confirm('are You sur?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"  class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                            Delete comment
+                        </button>
+
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+
+
+        </tbody>
+
+
+    </table>
+</div>
+</x-dashboard-layout>

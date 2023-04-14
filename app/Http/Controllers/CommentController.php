@@ -16,8 +16,8 @@ class CommentController extends Controller
     public function index()
     {
         //
-        $comments = Comment::all()->with('user', 'product', 'programme');
-        return view('comments.index', compact('comments'));
+        $comments = Comment::with('user', 'product', 'programme')->get();
+        return view('comments.comment', compact('comments'));
     }
 
     /**
