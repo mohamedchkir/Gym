@@ -61,5 +61,9 @@ Route::put('/user/{user}', [UserController::class, 'update']);
 Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 Route::get('/user/{id}', [UserController::class, 'show']);
 
+                // route for error404
+Route::fallback(function () {
+    return view('error404');
+});
 
 require __DIR__.'/auth.php';

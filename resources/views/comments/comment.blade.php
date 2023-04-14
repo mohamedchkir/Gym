@@ -28,16 +28,22 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    Name & Email
+                    Comment
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Phone
+                    user name
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Status
+                    user email
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Add date
+                    user phone
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    product name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    adding time
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Action
@@ -48,12 +54,15 @@
             @foreach ($comments as $comment)
 
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                    <div class="pl-3">
-                        <div class="text-base font-semibold">{{$comment->user->name}}</div>
-                        <div class="font-normal text-gray-500">{{$comment->user->email}}</div>
-                    </div>
-                </th>
+                <td class="px-6 py-4">
+                    {{$comment->text}}
+                </td>
+                <td class="px-6 py-4">
+                    {{$comment->user->name}}
+                </td>
+                <td class="px-6 py-4">
+                    {{$comment->user->email}}
+                </td>
                 <td class="px-6 py-4">
                     {{$comment->user->phone}}
                 </td>
@@ -62,9 +71,7 @@
                     {{$comment->product->name}}
                 </td>
                 </th>
-                <td class="px-6 py-4">
-                    {{$comment->text}}
-                </td>
+
                 <td class="px-6 py-4">
                     {{$comment->created_at->diffForHumans()}}
                 </td>
