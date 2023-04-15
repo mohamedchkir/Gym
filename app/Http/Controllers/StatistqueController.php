@@ -50,7 +50,7 @@ class StatistqueController extends Controller
         $coachCount = User::role('coach')->count();
 
         // Return view
-        return view('maindash', compact('usersCount', 'adminCount', 'userCount', 'coachCount','comments_count','products', 'totalQuantity', 'totalProductPrice', 'totalProducts', 'minProductPrice', 'maxProductPrice'));
+        return view('maindash', compact('usersCount', 'adminCount', 'userCount', 'coachCount','comments_count','totalQuantity', 'totalProductPrice', 'totalProducts', 'minProductPrice', 'maxProductPrice'));
 
     }
 }

@@ -30,7 +30,7 @@
           </div>
           <div class="mt-5">
             <div class="text-center">
-              <a href="{../../index.html}" class="text-white font-medium">Back to home</a>
+              <a href="./dashboard" class="text-white font-medium">Back to home</a>
             </div>
           </div>
           <div class="mt-5">
