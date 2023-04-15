@@ -64,6 +64,10 @@ Route::get('/user/{id}', [UserController::class, 'show']);
                 // route for error404
 Route::fallback(function () {
     return view('error404');
+
 });
+
+                // route for statistique
+Route::get('/dashboard',[UserController::class, 'statistiques']);
 
 require __DIR__.'/auth.php';

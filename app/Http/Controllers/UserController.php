@@ -20,20 +20,9 @@ class UserController extends Controller
             $roles = Role::all();
 
 
-        // Get the total number of users
-            $usersCount = User::count();
-
-        // Get the total number of users with admin role
-            $adminCount = User::role('admin')->count();
-
-        // Get the total number of users with user role
-            $userCount = User::role('user')->count();
-
-        // Get the total number of users with coach role
-            $coachCount = User::role('coach')->count();
 
         // Return view
-            return view('users.user', compact('users', 'roles', 'usersCount', 'adminCount', 'userCount', 'coachCount'));
+            return view('users.user', compact('users', 'roles'));
     }
 
     /**
@@ -137,5 +126,38 @@ class UserController extends Controller
         $user->delete();
         // return view flash success message
         return redirect()->back()->with('success', 'User deleted successfully');
+    }
+
+    public function search(Request $request)
+    {
+        // Get the search value from the request
+        $search = $request->input('search');
+
+        // Search in the title and body columns from the posts table
+        $users = User::query()
+            ->where('name', 'LIKE', "%{$search}%")
+            ->orWhere('email', 'LIKE', "%{$search}%")
+            ->get();
+
+        // Return the search view with the resluts compacted
+        return view('users.user', compact('users'));
+    }
+
+    public function statistiques()
+    {
+        // Get the total number of users
+        $usersCount = User::count();
+
+        // Get the total number of users with admin role
+        $adminCount = User::role('admin')->count();
+
+        // Get the total number of users with user role
+        $userCount = User::role('user')->count();
+
+        // Get the total number of users with coach role
+        $coachCount = User::role('coach')->count();
+
+        // Return view
+        return view('maindash', compact('usersCount', 'adminCount', 'userCount', 'coachCount'));
     }
 }
