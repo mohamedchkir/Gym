@@ -17,12 +17,12 @@
             <p
               class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
             >
-              User
+              Total Users
             </p>
             <p
               class="text-lg font-semibold text-gray-700 dark:text-gray-200"
             >
-              66
+            {{$usersCount}}
             </p>
           </div>
         </div>
@@ -45,12 +45,12 @@
             <p
               class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
             >
-            Total Products
+            Total Clients
             </p>
             <p
               class="text-lg font-semibold text-gray-700 dark:text-gray-200"
             >
-             88
+            {{$userCount}}
             </p>
           </div>
         </div>
@@ -71,12 +71,12 @@
             <p
               class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
             >
-            Total Orders
+            Total Admins
             </p>
             <p
               class="text-lg font-semibold text-gray-700 dark:text-gray-200"
             >
-              44
+            {{$adminCount}}
             </p>
           </div>
         </div>
@@ -99,12 +99,12 @@
             <p
               class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400"
             >
-              Matchs
+            Total Coachs
             </p>
             <p
               class="text-lg font-semibold text-gray-700 dark:text-gray-200"
             >
-            66
+            {{$coachCount}}
             </p>
           </div>
         </div>

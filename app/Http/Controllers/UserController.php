@@ -19,8 +19,21 @@ class UserController extends Controller
         // Get all roles
             $roles = Role::all();
 
+
+        // Get the total number of users
+            $usersCount = User::count();
+
+        // Get the total number of users with admin role
+            $adminCount = User::role('admin')->count();
+
+        // Get the total number of users with user role
+            $userCount = User::role('user')->count();
+
+        // Get the total number of users with coach role
+            $coachCount = User::role('coach')->count();
+
         // Return view
-            return view('users.user', compact('users', 'roles'));
+            return view('users.user', compact('users', 'roles', 'usersCount', 'adminCount', 'userCount', 'coachCount'));
     }
 
     /**
@@ -50,9 +63,29 @@ class UserController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-        //
-    }
+{
+    // Get the user
+    $user = User::findOrFail($id);
+
+    // Get all roles
+    $roles = Role::all();
+
+    // Get the total number of users
+    $userCount = User::count();
+
+    // Get the total number of users with admin role
+    $adminCount = User::role('admin')->count();
+
+    // Get the total number of users with user role
+    $userCount = User::role('user')->count();
+
+    // Get the total number of users with coach role
+    $coachCount = User::role('coach')->count();
+
+    // Return view
+    return view('maindash', compact('user', 'roles', 'userCount', 'adminCount', 'userCount', 'coachCount'));
+}
+
 
     /**
      * Show the form for editing the specified resource.
