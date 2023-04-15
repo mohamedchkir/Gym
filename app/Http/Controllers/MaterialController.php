@@ -136,7 +136,7 @@ class MaterialController extends Controller
             $material->save();
             return redirect()->back()->with('warning', 'Update successfully');
 
-            
+
 
     }
 
@@ -152,5 +152,28 @@ class MaterialController extends Controller
 
         $material->delete();
         return redirect()->back()->with('danger','Material deleted successfully');
+    }
+
+    public function statistiques()
+    {
+
+        // get number of materials
+        $materials_count = Material::count();
+
+        // get sum of materials price
+        $materials_price = Material::sum('price');
+
+        // get max price of material
+        $max_price = Material::max('price');
+
+        // get min price of material
+        $min_price = Material::min('price');
+
+        // return view with data
+        return view('maindash', compact('materials', 'materials_count', 'materials_price', 'max_price', 'min_price'));
+
+
+
+
     }
 }

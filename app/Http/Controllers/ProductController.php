@@ -168,4 +168,27 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->back()->with('danger', 'Product deleted successfully');
     }
+
+    public function statistiques()
+    {
+        $products = Product::all();
+
+        // get the sum of the quantity of all products
+        $totalQuantity = Product::sum('quantity');
+
+        // get the sum of the price of all products
+        $totalPrice = Product::sum('price');
+
+        // get the number of products
+        $totalProducts = Product::count();
+
+        // get the min price of all products
+        $minPrice = Product::min('price');
+
+        // get the max price of all products
+        $maxPrice = Product::max('price');
+
+        // return view
+        return view('products.statistiques', compact('products', 'totalQuantity', 'totalPrice', 'totalProducts', 'minPrice', 'maxPrice'));
+    }
 }

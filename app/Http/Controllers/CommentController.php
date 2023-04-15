@@ -102,4 +102,10 @@ class CommentController extends Controller
         return redirect()->back();
 
     }
+
+    public function statistiques(){
+        $comments = Comment::all();
+        $comments_count = $comments->count();
+        return view('maindash', compact('comments_count'));
+    }
 }

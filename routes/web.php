@@ -67,7 +67,16 @@ Route::fallback(function () {
 
 });
 
-                // route for statistique
+                // route for user statistiques
 Route::get('/dashboard',[UserController::class, 'statistiques']);
+
+                // route for product statistiques
+Route::get('/dashboard',[ProductController::class, 'statistiques']);
+
+                // route for material statistiques
+Route::get('/dashboard',[MaterialController::class, 'statistiques']);
+
+                // route for comment statistiques
+Route::get('/dashboard',[CommentController::class, 'statistiques']);
 
 require __DIR__.'/auth.php';
