@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Termwind\Components\Dd;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use Termwind\Components\Dd;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductController extends Controller
 {
@@ -169,26 +170,10 @@ class ProductController extends Controller
         return redirect()->back()->with('danger', 'Product deleted successfully');
     }
 
-    public function statistiques()
+    public function search(Request $request)
     {
-        $products = Product::all();
-
-        // get the sum of the quantity of all products
-        $totalQuantity = Product::sum('quantity');
-
-        // get the sum of the price of all products
-        $totalPrice = Product::sum('price');
-
-        // get the number of products
-        $totalProducts = Product::count();
-
-        // get the min price of all products
-        $minPrice = Product::min('price');
-
-        // get the max price of all products
-        $maxPrice = Product::max('price');
-
-        // return view
-        return view('products.statistiques', compact('products', 'totalQuantity', 'totalPrice', 'totalProducts', 'minPrice', 'maxPrice'));
+        $search = $request->get('search');
+        $products = Product::where('name', 'like', '%' . $search . '%')->paginate(5);
+        return view('products.product', ['products' => $products]);
     }
 }

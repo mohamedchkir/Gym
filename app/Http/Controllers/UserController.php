@@ -53,26 +53,7 @@ class UserController extends Controller
      */
     public function show(string $id)
 {
-    // Get the user
-    $user = User::findOrFail($id);
 
-    // Get all roles
-    $roles = Role::all();
-
-    // Get the total number of users
-    $userCount = User::count();
-
-    // Get the total number of users with admin role
-    $adminCount = User::role('admin')->count();
-
-    // Get the total number of users with user role
-    $userCount = User::role('user')->count();
-
-    // Get the total number of users with coach role
-    $coachCount = User::role('coach')->count();
-
-    // Return view
-    return view('maindash', compact('user', 'roles', 'userCount', 'adminCount', 'userCount', 'coachCount'));
 }
 
 
@@ -145,19 +126,6 @@ class UserController extends Controller
 
     public function statistiques()
     {
-        // Get the total number of users
-        $usersCount = User::count();
 
-        // Get the total number of users with admin role
-        $adminCount = User::role('admin')->count();
-
-        // Get the total number of users with user role
-        $userCount = User::role('user')->count();
-
-        // Get the total number of users with coach role
-        $coachCount = User::role('coach')->count();
-
-        // Return view
-        return view('maindash', compact('usersCount', 'adminCount', 'userCount', 'coachCount'));
     }
 }
