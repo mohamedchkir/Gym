@@ -38,7 +38,7 @@ class UserController extends Controller
     {
         //store a new user
         $user = User::create($request->all());
-        
+
         // assign role  to user
         $user->assignRole($request->role);
 
