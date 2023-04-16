@@ -170,6 +170,12 @@ class ProductController extends Controller
         return redirect()->back()->with('danger', 'Product deleted successfully');
     }
 
+
+    public function storeProduct(){
+        $products=Product::all();
+        return view('products.store',compact('products'));
+    }
+
     public function search(Request $request)
     {
         $search = $request->get('search');

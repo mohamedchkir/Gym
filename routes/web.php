@@ -71,4 +71,8 @@ Route::fallback(function () {
                 // route for  statistiques
 Route::get('/dashboard',[StatistqueController::class, 'index']);
 
+
+                // store product
+Route::get('/store', [ProductController::class, 'storeProduct'])->name('store');
+
 require __DIR__.'/auth.php';
