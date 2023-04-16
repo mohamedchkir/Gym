@@ -20,7 +20,7 @@ use App\Http\Controllers\StatistqueController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('products.store');
 });
 
 Route::get('/dashboard', function () {
