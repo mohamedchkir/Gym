@@ -75,4 +75,7 @@ Route::get('/dashboard',[StatistqueController::class, 'index']);
                 // store product
 Route::get('/store', [ProductController::class, 'storeProduct'])->name('store');
 
+                // cart product
+Route::get('/cart/{id}', [ProductController::class, 'cart'])->name('cart');
+
 require __DIR__.'/auth.php';
