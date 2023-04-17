@@ -27,21 +27,13 @@
           <input type="hidden" id="product_id" value="{{ $products->id }}">
           <div class="flex mb-4">
             <span class="flex items-center">
-              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-              </svg>
-              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-              </svg>
-              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-              </svg>
-              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-              </svg>
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-              </svg>
+                <div class="star-rating">
+                    <i class="fa-solid fa-star" data-value="1"></i>
+                    <i class="fa-solid fa-star" data-value="2"></i>
+                    <i class="fa-solid fa-star" data-value="3"></i>
+                    <i class="fa-solid fa-star" data-value="4"></i>
+                    <i class="fa-solid fa-star" data-value="5"></i>
+                </div>
               <span class="text-gray-600 ml-3">{{$products->comments->count()}} Comments</span>
             </span>
             <span class="flex ml-3 pl-3 py-2 border-l-2 border-gray-200">
@@ -79,25 +71,9 @@
     <!-- post card -->
     {{-- comment title for this section --}}
     <h1 class="border-b-2 mt-5 text-4xl">Comments</h1>
-    @foreach ($products->comments as $comment)
+    <div id="comments">
 
-    <div class="grid grid-cols-2">
-        <!-- Comments View -->
-        <div class="flex items-start px-4 py-6">
-            <img class="w-12 h-12 rounded-full object-cover mr-4 shadow" src="{{$comment->user->image}}" alt="avatar">
-            <div class="">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-lg font-semibold text-gray-900 -mt-1">{{$comment->user->name}} </h2>
-                    <small class="text-sm text-gray-700">{{$comment->created_at}}</small>
-                </div>
-                <p class="text-gray-700">{{$comment->user->created_at}}</p>
-                <p class="mt-3 text-gray-700 text-sm">
-                    {{$comment->text}}
-                </p>
-            </div>
-        </div>
     </div>
-    @endforeach
 
         <!-- add Comments  -->
         <div class="comment mt-3">
@@ -153,10 +129,9 @@
             console.log(rating);
             var product_id = $('#product_id').val();
             console.log(product_id);
-            return;
             // var _token = $('input[name="_token"]').val();
             $.ajax({
-                url:"",
+                url:"/ratings/store",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -164,6 +139,7 @@
                 data:{comment:comment, rating:rating, product_id:product_id},
                 success:function(data){
                     console.log(data);
+                    fetchComments();
                     return;
                     if(data.error){
                         if(data.comment.error){
@@ -181,5 +157,67 @@
             });
         });
     })
+
+
+    function fetchComments(){
+        $(document).ready(function(){
+            var product_id = $('#product_id').val();
+            console.log(product_id);
+            $.ajax({
+                url: '/ratings/show/' + product_id,
+                method: 'GET',
+                success: function(data){
+                    // console.log(data);
+                    show(data);
+                    // $('.comment').html(data);
+                }
+            })
+        })
+    }
+
+    fetchComments();
+
+    function show(data){
+
+        console.log(data);
+        const rating = data.average_rating;
+        const stars = $('.star-rating i');
+        stars.removeClass('active');
+
+        for (let i = 0; i < rating; i++) {
+            stars.eq(i).addClass('active');
+        }
+
+        const commentsDiv = $('#comments');
+        let comments = data.latest_comments;
+        commentsDiv.empty();
+
+        comments.forEach(comment => {
+            const commentHtml = `
+            <article class="p-2 mb-1 text-base bg-white rounded-lg dark:bg-gray-900">
+                            <footer class="flex justify-between items-center mb-2">
+                                <div class="flex items-center">
+                                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white"><img
+                                            class="mr-2 w-6 h-6 rounded-full"
+                                            src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+                                            alt="Michael Gough">
+                                        <span class="font-semibold">${comment.user_name}</span>
+                                            </p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
+                                            title="February 8th, 2022">
+                                            ${comment.created_at}
+                                            </time></p>
+                                </div>
+
+                                <!-- Dropdown menu -->
+
+                            </footer>
+                            <p class="text-gray-500 dark:text-gray-400 text-xs">
+                                ${comment.comment}
+                            .</p>
+                        </article>`;
+            commentsDiv.append(commentHtml);
+        });
+    }
 </script>
 

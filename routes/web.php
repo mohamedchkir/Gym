@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\StatistqueController;
 
 /*
@@ -80,6 +81,10 @@ Route::get('/cart/{id}', [ProductController::class, 'cart'])->name('cart');
 
                 //shoz cart product and comment info
 // Route::get('/cart/{id}', [CommentController::class, 'indexUser'])->name('cart');
+Route::post('/ratings/store', [RatingController::class, 'store'])->name('ratings.store');
+Route::get('/ratings/show/{productId}', [RatingController::class, 'showRating'])->name('ratings.show');
+
+                // add to cart
 
 
 
