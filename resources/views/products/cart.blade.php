@@ -1,5 +1,20 @@
 <x-dashboard-layout>
 <!-- Product details section -->
+<style>
+    .star-rating i {
+    color: #ddd;
+    font-size: 18px;
+    cursor: pointer;
+    }
+
+    .star-rating i.active,
+    .star-rating i:hover {
+    color: #f1c40f;
+    /* background-color: #f1c40f; */
+}
+
+</style>
+
 <section class="text-gray-700 body-font overflow-hidden bg-white">
     <div class="container px-5 py-24 mx-auto">
 
@@ -9,6 +24,7 @@
 
 
           <h1 class="text-gray-900 text-3xl title-font font-medium mb-1"> {{ $products->name }}</h1>
+          <input type="hidden" id="product_id" value="{{ $products->id }}">
           <div class="flex mb-4">
             <span class="flex items-center">
               <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-red-500" viewBox="0 0 24 24">
@@ -85,14 +101,23 @@
 
         <!-- add Comments  -->
         <div class="comment mt-3">
-            <form>
+            <form >
+            @csrf
                 <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                     <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                         <label for="comment" class="sr-only">Your comment</label>
                         <textarea id="comment" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write a comment..." required></textarea>
                     </div>
+                    <div class="star-rating">
+                        <i class="fa-solid fa-star" data-value="1"></i>
+                        <i class="fa-solid fa-star" data-value="2"></i>
+                        <i class="fa-solid fa-star" data-value="3"></i>
+                        <i class="fa-solid fa-star" data-value="4"></i>
+                        <i class="fa-solid fa-star" data-value="5"></i>
+                    </div>
+                    <input type="hidden" id="rating" name="rating">
                     <div class="flex items-center justify-end   px-3 py-2 border-t dark:border-gray-600">
-                        <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                        <button id="save-review" type="button" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                             Post comment
                         </button>
 
@@ -105,5 +130,56 @@
 </div>
   </section>
 
+
+
 </x-dashboard-layout>
+<script>
+    $(document).ready(function() {
+        $('.star-rating i').click(function() {
+            var rating = $(this).data('value');
+            $('#rating').val(rating);
+            console.log(rating);
+            $(this).addClass('active');
+            $(this).prevAll().addClass('active');
+            $(this).nextAll().removeClass('active');
+        });
+    });
+
+    $(document).ready(function(){
+        $('#save-review').click(function(){
+            var comment = $('#comment').val();
+            console.log(comment);
+            var rating = $('#rating').val();
+            console.log(rating);
+            var product_id = $('#product_id').val();
+            console.log(product_id);
+            return;
+            // var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                method:"POST",
+                data:{comment:comment, rating:rating, product_id:product_id},
+                success:function(data){
+                    console.log(data);
+                    return;
+                    if(data.error){
+                        if(data.comment.error){
+                            $('#comment').addClass('is-invalid');
+                            $('.errorComment').text(data.comment.error[0]);
+                        }
+                    }
+                    if(data.success){
+                        $('#comment').removeClass('is-invalid');
+                        $('.errorComment').text('');
+                        $('#comment').val('');
+                        $('.comment').prepend(data.success);
+                    }
+                }
+            });
+        });
+    })
+</script>
 
