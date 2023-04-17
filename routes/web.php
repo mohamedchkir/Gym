@@ -78,4 +78,10 @@ Route::get('/store', [ProductController::class, 'storeProduct'])->name('store');
                 // cart product
 Route::get('/cart/{id}', [ProductController::class, 'cart'])->name('cart');
 
+                //shoz cart product and comment info
+// Route::get('/cart/{id}', [CommentController::class, 'indexUser'])->name('cart');
+
+
+
+
 require __DIR__.'/auth.php';

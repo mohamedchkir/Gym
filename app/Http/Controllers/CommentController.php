@@ -16,8 +16,21 @@ class CommentController extends Controller
     public function index()
     {
         //
-        $comments = Comment::with('user', 'product', 'programme')->get();
+        $comments = Comment::with('user', 'product')->get();
         return view('comments.comment', compact('comments'));
+    }
+
+
+
+    public function indexUser()
+    {
+
+        //return all comments for a user
+        $comments = Comment::with('user', 'product')->get();
+        //number of comments in the product
+        $comments_count = $comments->count();
+
+        return view('products.cart', compact('comments', 'comments_count'));
     }
 
     /**
