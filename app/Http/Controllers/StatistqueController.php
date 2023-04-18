@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-use App\Models\Programme;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Material;
 
 
+use App\Models\Programme;
 use Illuminate\Http\Request;
 
 class StatistqueController extends Controller
@@ -33,8 +34,7 @@ class StatistqueController extends Controller
 
 
         // Get the total number of comments
-        $comments = Comment::all();
-        $comments_count = $comments->count();
+        $comments_count = Comment::count();
 
 
         // Get the total number of users
@@ -49,8 +49,25 @@ class StatistqueController extends Controller
         // Get the total number of users with coach role
         $coachCount = User::role('coach')->count();
 
+
+        // get number of materials
+        $totalMaterialQuantity = Material::sum('quantity');
+
+        // get sum of materials prices
+        $totalMaterialPrice = Material::sum('price');
+
+        // get min price of materials
+        $minMaterialPrice = Material::min('price');
+
+        // get max price of materials
+        $maxMaterialPrice = Material::max('price');
+
+
         // Return view
-        return view('maindash', compact('usersCount', 'adminCount', 'userCount', 'coachCount','comments_count','totalQuantity', 'totalProductPrice', 'totalProducts', 'minProductPrice', 'maxProductPrice'));
+        return view('maindash', compact('usersCount', 'adminCount', 'userCount', 'coachCount',
+        'comments_count','totalQuantity', 'totalProductPrice', 'totalProducts',
+         'minProductPrice', 'maxProductPrice','totalMaterialQuantity',
+          'totalMaterialPrice', 'minMaterialPrice', 'maxMaterialPrice'));
 
     }
 }
