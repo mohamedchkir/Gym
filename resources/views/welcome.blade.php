@@ -470,7 +470,7 @@
    >
      <div class="w-full px-4 mx-auto text-center">
        <div class="text-sm text-gray-600 font-semibold py-1">
-        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by Chkir
+        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart" aria-hidden="true"></i> by Chkir
        </div>
      </div>
    </div>

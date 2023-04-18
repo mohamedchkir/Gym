@@ -19,10 +19,13 @@ class UserController extends Controller
         // Get all roles
             $roles = Role::all();
 
+        // get number of users
+            $usersCount = User::count();
+
 
 
         // Return view
-            return view('users.user', compact('users', 'roles'));
+            return view('users.user', compact('users', 'roles', 'usersCount'));
     }
 
     /**

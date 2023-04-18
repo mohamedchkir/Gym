@@ -90,34 +90,31 @@
 
 
   <aside id="logo-sidebar" class="fixed top-0 left-0 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-         <ul class="space-y-2 font-medium">
+     <div class="h-full grid grid-row-2  px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+         <ul class="row-end-0 space-y-2 font-medium row-start-1">
                 <li>
                     <a href="/dashboard" class="{{request()->is('dashboard') ? 'bg-gray-100 dark:bg-gray-700':'' }}  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+
+                        <i class="fa-solid fa-chart-line w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
                         <span class="ml-3">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="/product" class="{{request()->is('product') ? 'bg-gray-100 dark:bg-gray-700':'' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+                        <i class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white fa-brands fa-product-hunt"></i>
+                        {{-- <svg aria-hidden="true" class=" dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg> --}}
                         <span class="ml-3">Product</span>
                     </a>
                 </li>
                 <li>
                     <a href="/materials" class="{{request()->is('materials') ? 'bg-gray-100 dark:bg-gray-700':'' }}  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+                        <i class="fa-solid fa-cart-shopping dark:group-hover:text-white w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900"></i>
                         <span class="ml-3">Materials</span>
                     </a>
                 </li>
                 <li>
                     <a href="/comments" class="{{request()->is('comments') ? 'bg-gray-100 dark:bg-gray-700':'' }}  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg class=" w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M21.6 5.4c0-1.5-1.1-2.8-2.5-2.9h-15c-1.4 0.1-2.5 1.4-2.5 2.9v12.9c0 1.5 1.1 2.8 2.5 2.9h15c1.4-0.1 2.5-1.4 2.5-2.9v-2.2h-2v2.2c0 0.6-0.5 1-1 1h-15c-0.6 0-1-0.5-1-1v-12.9c0-0.6 0.5-1 1-1h15c0.6 0 1 0.5 1 1v2.2h2v-2.2z"/>
-                            <path d="M7.8 14.3h8.3v1.4h-8.3v-1.4z"/>
-                            <path d="M7.8 11.4h8.3v1.4h-8.3v-1.4z"/>
-                            <path d="M7.8 8.6h8.3v1.4h-8.3v-1.4z"/>
-                        </svg>
+                        <i class="fa-solid fa-comment w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
 
                         <span class="ml-3">Comments</span>
                     </a>
@@ -126,27 +123,18 @@
 
                 <li>
                     <a href="/users" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg aria-hidden="true" class="{{request()->is('users') ? 'bg-gray-100 dark:bg-gray-700':'' }}  flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
+                        <i class="fa-solid fa-users w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
                         <span class="flex-1 ml-3 whitespace-nowrap">USERS</span>
                         <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
                     </a>
            </li>
-           <li>
-              <a href="coachs" class="{{request()->is('coachs') ? 'bg-gray-100 dark:bg-gray-700':'' }}  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path fill="#9B9B9B" d="M12,2c-3.3,0-6,2.7-6,6v2c0,3.3,2.7,6,6,6s6-2.7,6-6V8C18,4.7,15.3,2,12,2z M15,8c0,2.8-2.2,5-5,5s-5-2.2-5-5V7h2v1c0,2.2,1.8,4,4,4s4-1.8,4-4V7h2V8z M12,14c-1.7,0-3-1.3-3-3V9h6v2C15,12.7,13.7,14,12,14z"/>
-                  </svg>
-
-
-                 <span class="flex-1 ml-3 whitespace-nowrap">Coachs</span>
-              </a>
-           </li>
-           <ul class="space-y-2 font-medium">
+         </ul>
+           <ul class="space-y-2 font-medium row-start-2 grid self-end">
                <li>
                     <form class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-red-500 dark:hover:bg-red-500" method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button class="flex items-center " type="submit"
-                        ><svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-50 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path></svg>
+                        <button class="flex items-center " type="submit">
+                        <i class="fa-solid fa-right-from-bracket w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
                         <span class="flex-1 ml-3 whitespace-nowrap">Log Out</span></button>
                     </form>
 
