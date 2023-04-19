@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="https://www.flaticon.com/svg/static/icons/svg/2913/2913448.svg" type="image/x-icon"/>
         <title>GYM</title>
+        <link rel="icon" type="images/x-icon" href="https://www.w3docs.com/favicon.ico" />
         <!-- Fonts -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -85,11 +86,11 @@
        background-image: url('https://mattsko.files.wordpress.com/2021/07/0-muscle-3837833.jpg?w=634');">
      <span id="blackOverlay"class="w-full h-full absolute opacity-75 bg-black"></span>
    </div>
-   <div class="container relative mx-auto" data-aos="fade-in">
+   <div class="container relative mx-auto" data-aos="zoom-in-down">>
      <div class="items-center flex flex-wrap">
        <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
          <div>
-           <h1 class="text-white font-semibold text-5xl">
+           <h1 class="text-white font-semibold text-5xl" >
              Feel The <span class="text-red-500">Power</span>
            </h1>
            <p class="mt-4 text-lg text-gray-300">
@@ -204,28 +205,28 @@
             <h2 class="text-3xl font-bold mt-2">PUSH YOUR LIMITS FORWARD</h2>
         </div>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <div class="text-center">
+            <div class="text-center " data-aos="fade-up">
                 <span class="block mb-4 text-5xl text-red-500">
                     <i class="fa-sharp fa-solid fa-medal"></i>
                 </span>
                 <h4 class="text-lg font-medium mb-2">Modern equipment</h4>
                 <p class="text-gray-500 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut dolore facilisis.</p>
             </div>
-            <div class="text-center">
+            <div class="text-center" data-aos="fade-down">
                 <span class="block mb-4 text-5xl text-red-500">
                     <i class="fa-solid fa-bowl-food"></i>
                 </span>
                 <h4 class="text-lg font-medium mb-2">Healthy nutrition plan</h4>
                 <p class="text-gray-500 text-sm">Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
             </div>
-            <div class="text-center">
+            <div class="text-center" data-aos="fade-up">
                 <span class="block mb-4 text-5xl text-red-500">
                     <i class="fa-solid fa-dumbbell"></i>
                 </span>
                 <h4 class="text-lg font-medium mb-2">Professional training plan</h4>
                 <p class="text-gray-500 text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut dolore facilisis.</p>
             </div>
-            <div class="text-center">
+            <div class="text-center" data-aos="fade-down">
                 <span class="block mb-4 text-5xl text-red-500">
                     <i class="fa-solid fa-heart-pulse"></i>
                 </span>
@@ -359,7 +360,7 @@
            class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300"
            data-aos="fade-up-right"
          >
-         <form action="/" method="¨POST">
+         <form action="{{route('send.message')}}" method="¨POST">
             @csrf
            <div class="flex-auto p-5 lg:p-10 bg-red-500 text-white">
              <h4 class="text-2xl font-semibold">Want to work with us?</h4>

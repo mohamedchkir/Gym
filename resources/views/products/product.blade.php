@@ -1,4 +1,23 @@
 <x-dashboard-layout>
+
+    @if (session()->has('danger'))
+    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+        role="alert">
+        <span class="font-medium"></span> {{ session()->get('danger') }}
+    </div>
+@endif
+@if (session()->has('success'))
+    <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+        role="alert">
+        <span class="font-medium"></span> {{ session()->get('success') }}
+    </div>
+@endif
+@if (session()->has('warning'))
+    <div class="p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg dark:bg-yellow-200 dark:text-yellow-800"
+        role="alert">
+        <span class="font-medium"></span> {{ session()->get('warning') }}
+    </div>
+@endif
   <!-- Main modal -->
   <div id="product-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
       <div class="relative w-full h-full max-w-2xl px-4 md:h-auto">

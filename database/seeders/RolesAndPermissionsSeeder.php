@@ -21,59 +21,59 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run()
     {
         // Coach Permissions
-        Permission::create(['name' => 'view Coachs']);
-        Permission::create(['name' => 'create Coachs']);
-        Permission::create(['name' => 'edit Coachs']);
-        Permission::create(['name' => 'delete Coachs']);
+        $viewCoachs = Permission::create(['name' => 'view Coachs']);
+        $createCoachs = Permission::create(['name' => 'create Coachs']);
+        $editCoachs = Permission::create(['name' => 'edit Coachs']);
+        $deleteCoachs = Permission::create(['name' => 'delete Coachs']);
 
         // Product Permissions
-        Permission::create(['name' => 'view Product']);
-        Permission::create(['name' => 'create Product']);
-        Permission::create(['name' => 'edit Product']);
-        Permission::create(['name' => 'delete Product']);
+        $viewProduct = Permission::create(['name' => 'view Product']);
+        $createProduct = Permission::create(['name' => 'create Product']);
+        $editProduct = Permission::create(['name' => 'edit Product']);
+        $deleteProduct = Permission::create(['name' => 'delete Product']);
 
         // Programme Permissions
-        Permission::create(['name' => 'view Programme']);
-        Permission::create(['name' => 'create Programme']);
-        Permission::create(['name' => 'edit Programme']);
-        Permission::create(['name' => 'delete Programme']);
+        $viewProgramme = Permission::create(['name' => 'view Programme']);
+        $createProgramme = Permission::create(['name' => 'create Programme']);
+        $editProgramme = Permission::create(['name' => 'edit Programme']);
+        $deleteProgramme = Permission::create(['name' => 'delete Programme']);
 
 
         // Material Permissions
-        Permission::create(['name' => 'view Materials']);
-        Permission::create(['name' => 'create Materials']);
-        Permission::create(['name' => 'edit Materials']);
-        Permission::create(['name' => 'delete Materials']);
+        $viewMaterials = Permission::create(['name' => 'view Materials']);
+        $createMaterials = Permission::create(['name' => 'create Materials']);
+        $editMaterials = Permission::create(['name' => 'edit Materials']);
+        $deleteMaterials = Permission::create(['name' => 'delete Materials']);
 
 
         // Comments Permissions
-        Permission::create(['name' => 'view Comments']);
-        Permission::create(['name' => 'create Comments']);
-        Permission::create(['name' => 'edit Comments']);
-        Permission::create(['name' => 'delete Comments']);
+        $viewComments = Permission::create(['name' => 'view Comments']);
+        $createComments = Permission::create(['name' => 'create Comments']);
+        $editComments = Permission::create(['name' => 'edit Comments']);
+        $deleteComments = Permission::create(['name' => 'delete Comments']);
 
         // Users Permissions
-        Permission::create(['name' => 'view users']);
-        Permission::create(['name' => 'create users']);
-        Permission::create(['name' => 'edit users']);
-        Permission::create(['name' => 'delete users']);
+        $viewusers = Permission::create(['name' => 'view users']);
+        $createusers = Permission::create(['name' => 'create users']);
+        $editusers = Permission::create(['name' => 'edit users']);
+        $deleteusers = Permission::create(['name' => 'delete users']);
 
         // // Role Permissions
-        // Permission::create(['name' => 'view roles']);
-        // Permission::create(['name' => 'create roles']);
-        // Permission::create(['name' => 'edit roles']);
-        // Permission::create(['name' => 'delete roles']);
-        // Permission::create(['name' => 'grant and revoke permission']);
-        // Permission::create(['name' => 'assign role']);
+        // $viewroles = Permission::create(['name' => 'view roles']);
+        // $createroles = Permission::create(['name' => 'create roles']);
+        // $editroles = Permission::create(['name' => 'edit roles']);
+        // $deleteroles = Permission::create(['name' => 'delete roles']);
+        // $grantand = Permission::create(['name' => 'grant and revoke permission']);
+        // $assignrole = Permission::create(['name' => 'assign role']);
 
         // Permission Permissions
-        Permission::create(['name' => 'view permissions']);
-        Permission::create(['name' => 'create permissions']);
-        Permission::create(['name' => 'edit permissions']);
-        Permission::create(['name' => 'delete permissions']);
+        $viewpermissions = Permission::create(['name' => 'view permissions']);
+        $createpermissions = Permission::create(['name' => 'create permissions']);
+        $editpermissions = Permission::create(['name' => 'edit permissions']);
+        $deletepermissions = Permission::create(['name' => 'delete permissions']);
 
         //payement Permissions
-        Permission::create(['name' => 'make payements']);
+        $makepayements = Permission::create(['name' => 'make payements']);
 
 
         // Create Roles
@@ -85,7 +85,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // Assign Permissions to Roles
         $adminRole->syncPermissions(Permission::all());
-        $coachRole->syncPermissions(['view Coachs', 'delete Coachs', 'edit Coachs','view Programme', 'create Programme' ,'edit Programme','delete Programme']);
-        $userRole->syncPermissions(['view Coachs', 'view Programme','view Comments', 'create Comments', 'edit Comments', 'delete Comments', 'view Product','make payements']);
+        $coachRole->syncPermissions([$viewCoachs , $deleteCoachs , $editCoachs, $viewProgramme ,$createProgramme , $editProgramme ,$deleteProgramme]);
+        $userRole->syncPermissions([$viewCoachs , $viewProgramme, $viewComments , $createComments , $editComments , $deleteComments , $viewProduct, $makepayements]);
     }
 }

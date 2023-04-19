@@ -19,10 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('image')->nullable();
+            $table->string('image')->default("image.jpg");
             $table->string('phone')->nullable()->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->foreign('product_id')->references('id')->on('products');
             $table->rememberToken();
             $table->timestamps();
         });

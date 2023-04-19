@@ -47,6 +47,7 @@ class UserController extends Controller
         // assign role  to user
         $user->assignRole($request->role);
 
+
         // return view flash success message
         return redirect()->back()->with('success', 'User created successfully');
     }
@@ -56,6 +57,10 @@ class UserController extends Controller
      */
     public function show(string $id)
 {
+    return response()->json([
+    'user' => User::find($id),
+    'role' => User::find($id)->roles->first()->name
+]);
 
 }
 
@@ -81,8 +86,10 @@ class UserController extends Controller
         // get user
         $user = User::find($id);
 
-        // get role
-        $role = Role::findByName($request->role);
+        // update user image
+       $image=$request->file('image');
+
+
 
         // remove all roles
         $user->removeRole($user->roles->first()->name);
@@ -90,11 +97,28 @@ class UserController extends Controller
         // assign role
         $user->assignRole($request->role);
 
-        // update user
+        // if password is not empty update password
+        if ($request->password != null) {
+            $request["password"] = bcrypt($request->password);
+        }else{
+            $request["password"] = $user->password;
+        }
+
+        // dd($request->all());
+        //update user
         $user->update($request->all());
 
+
+        $image=$request->file('image');
+        if($image){
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/users'), $new_name);
+            $user->image = $new_name;
+            $user->save();
+        }
+
         // return view flash success message
-        return redirect()->back()->with('success', 'User updated successfully');
+        return redirect()->back()->with('warning', 'User updated successfully');
     }
 
     /**
@@ -109,7 +133,7 @@ class UserController extends Controller
         // delete user
         $user->delete();
         // return view flash success message
-        return redirect()->back()->with('success', 'User deleted successfully');
+        return redirect()->back()->with('danger', 'User deleted successfully');
     }
 
     public function search(Request $request)

@@ -58,7 +58,7 @@ class CommentController extends Controller
         $comment->programme_id = $request->programme_id;
         $comment->text = $request->text;
         $comment->save();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Commentaire ajouté avec succès');
     }
 
     /**
@@ -99,7 +99,7 @@ class CommentController extends Controller
         $comment->programme_id = $request->programme_id;
         $comment->text = $request->text;
         $comment->save();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Commentaire modifié avec succès');
     }
 
     /**
@@ -112,7 +112,7 @@ class CommentController extends Controller
     {
         //delete comment for a user to a product or programme
         $comment->delete();
-        return redirect()->back();
+        return redirect()->back()->with('danger', 'Commentaire supprimé avec succès');
 
     }
 

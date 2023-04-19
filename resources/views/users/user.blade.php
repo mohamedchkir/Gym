@@ -1,6 +1,23 @@
 <x-dashboard-layout>
 
-
+    @if (session()->has('danger'))
+    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+        role="alert">
+        <span class="font-medium"></span> {{ session()->get('danger') }}
+    </div>
+@endif
+@if (session()->has('success'))
+    <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+        role="alert">
+        <span class="font-medium"></span> {{ session()->get('success') }}
+    </div>
+@endif
+@if (session()->has('warning'))
+    <div class="p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg dark:bg-yellow-200 dark:text-yellow-800"
+        role="alert">
+        <span class="font-medium"></span> {{ session()->get('warning') }}
+    </div>
+@endif
 
     {{-- THE HEAD OF THE TABLE  --}}
 
@@ -53,7 +70,7 @@
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                     <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                        <img class="w-10 h-10 rounded-full" src="{{$user->image}}" alt="Jese image">
+                        <img class="w-10 h-10 rounded-full" src="{{asset('assets/images/users/'.$user->image)}}" alt="Jese image">
                         <div class="pl-3">
                             <div class="text-base font-semibold">{{$user->name}}</div>
                             <div class="font-normal text-gray-500">{{$user->email}}</div>
@@ -104,8 +121,9 @@
         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
         <span class="sr-only">Close menu</span>
     </button>
-    <form action="/user" method="POST">
+    <form action="/user" method="POST" id="user_form" enctype="multipart/form-data">
         @csrf
+        @method('POST')
         <div class="space-y-4">
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
@@ -130,8 +148,8 @@
 
 
             <div>
-                <label for="discount-create" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Roles</label>
-                <select id="discount-create" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Roles</label>
+                <select id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     @foreach ($roles as $role)
                         <option value="{{ $role->name }}">{{ $role->name }}</option>
 
@@ -162,7 +180,7 @@
        $('#user_form').attr('method', 'POST');
        $('#user_form').attr('action', '/user');
        $('#user_form').trigger("reset");
-
+       $("input[name='_method']").val('POST');
 
          $("#update-user-btn").hide();
 
@@ -176,6 +194,7 @@
             $("#update-user-btn").show();
         // hide add button
             $("#add-user-btn").hide();
+            $("input[name='_method']").val('PUT');
 
        $.ajax({
            url: '/user/' + id,
@@ -186,14 +205,14 @@
                console.log(data.responseJSON);
            },
            success: function(data) {
-               $('#user_id').val(data.id);
-               $('#user_form').append('@method('PUT')');
-               $('#user_form').attr('action', '/user/' + data.id);
-               $('#image').attr('src', data.image);
-               $('#name').val(data.name);
-               $('#email').val(data.quantity);
-               $('#phone').val(data.price);
-               $('#password').val(data.description);
+               $('#user_id').val(data.user.id);
+               $('#user_form').attr('action', '/user/' + data.user.id);
+               $('#image').attr('src', data.user.image);
+               $('#name').val(data.user.name);
+               $('#email').val(data.user.email);
+               $('#phone').val(data.user.phone);
+               $('#password').val(data.user.password);
+                $('#role').val(data.role);
 
 
            }

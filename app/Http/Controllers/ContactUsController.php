@@ -10,30 +10,32 @@ use Illuminate\Support\Facades\Mail;
 
 class ContactUsController extends Controller
 {
+
+    public function contact()
+    {
+        return view('LayoutFrontEnd.contact.index');
+    }
+
     function index(Request $request)
 
     {
         $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'name' => 'required',
             'email' => 'required',
-            'subject' => 'required',
             'message' => 'required',
         ]);
 
         $data = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'name' => $request->name,
             'email' => $request->email,
-            'subject' => $request->subject,
-            'content' => $request->message,
+            'message' => $request->message,
         ];
 
 
         try {
             Mail::send('LayoutFrontEnd.contact.sendEmail', $data, function($message) use($data) {
-                $message->to('inbox-id@inbox.mailtrap.io')->subject($data['subject']);
-                $message->from($data['email'], $data['first_name'].' '.$data['last_name']);
+                $message->to('inbox-id@inbox.mailtrap.io')->subject($data['message']);
+                $message->from($data['email'], $data['name'].' '.$data['last_name']);
             });
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'Oops! An error occurred while sending your message. Please try again later.');

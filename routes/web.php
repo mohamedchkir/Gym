@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\StatistqueController;
+use App\Http\Controllers\ContactUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,7 +85,10 @@ Route::get('/cart/{id}', [ProductController::class, 'cart'])->name('cart');
 Route::post('/ratings/store', [RatingController::class, 'store'])->name('ratings.store');
 Route::get('/ratings/show/{productId}', [RatingController::class, 'showRating'])->name('ratings.show');
 
-                // add to cart
+                // contact us route
+// Route::post('/contact', [ContactUsController::class, 'index'])->name('contact');
+Route::get('contact',[ContactUsController::class, 'contact'])->name('page.contact');
+Route::post('/sendMessage',[ContactUsController::class, 'index'])->name('send.message');
 
 
 
