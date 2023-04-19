@@ -359,6 +359,8 @@
            class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300"
            data-aos="fade-up-right"
          >
+         <form action="/" method="¨POST">
+            @csrf
            <div class="flex-auto p-5 lg:p-10 bg-red-500 text-white">
              <h4 class="text-2xl font-semibold">Want to work with us?</h4>
              <p class="leading-relaxed mt-1 mb-4">
@@ -374,6 +376,7 @@
                  class="px-3 py-3 placeholder-gray-400 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                  placeholder="Full Name"
                  style="transition: all 0.15s ease 0s"
+                 name="name"
                />
              </div>
              <div class="relative w-full mb-3">
@@ -386,6 +389,7 @@
                  class="px-3 py-3 placeholder-gray-400 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                  placeholder="Email"
                  style="transition: all 0.15s ease 0s"
+                 name="email"
                />
              </div>
              <div class="relative w-full mb-3">
@@ -398,18 +402,20 @@
                  cols="80"
                  class="px-3 py-3 placeholder-gray-400 bg-white rounded text-sm shadow focus:outline-none focus:shadow-outline w-full"
                  placeholder="Type a message..."
+                 name="message"
                ></textarea>
              </div>
              <div class="text-center mt-6">
                <button
                  class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                 type="button"
+                 type="submit"
                  style="transition: all 0.15s ease 0s"
                >
                  Send Message
                </button>
              </div>
            </div>
+        </form>
          </div>
        </div>
      </div>
