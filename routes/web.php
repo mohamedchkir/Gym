@@ -51,7 +51,8 @@ Route::delete('/material/{material}', [MaterialController::class, 'destroy'])->n
 Route::get('/material/{id}', [MaterialController::class, 'show']);
 
                 // Route for comment
-Route::get('comments', [CommentController::class, 'index']);
+// Route::get('comments', [CommentController::class, 'index']);
+Route::get('comments', [RatingController::class, 'adminComments']);
 Route::post('/comment', [CommentController::class, 'store']);
 Route::put('/comment/{comment}', [CommentController::class, 'update']);
 Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');

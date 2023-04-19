@@ -49,25 +49,45 @@
      class="lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none hidden"
      id="example-collapse-navbar"
    >
-
+   <ul class="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 lg:flex lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
+    <li><a class="text-sm text-gray-400 hover:font-bold hover:text-red-600" href="#hero">Home</a></li>
+    <li class="text-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+        </svg>
+    </li>
+    <li><a class="text-sm text-gray-400 hover:font-bold hover:text-red-600" href="#about">About Us</a></li>
+    <li class="text-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+        </svg>
+    </li>
+    <li><a class="text-sm text-gray-400 hover:font-bold hover:text-red-600" href="#services">Services</a></li>
+    <li class="text-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+        </svg>
+    </li>
+    <li><a class="text-sm text-gray-400 hover:font-bold hover:text-red-600" href="#coachs">Our coachs</a></li>
+    <li class="text-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" class="w-4 h-4 current-fill" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+        </svg>
+    </li>
+    <li><a class="text-sm text-gray-400 hover:font-bold hover:text-red-600" href="#contact">Contact Us</a></li>
+</ul>
    <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
        <!-- Dashboard -->
        <li class="flex items-center">
            @if (Route::has('login'))
            @auth
-        <a href="{{ url('/dashboard') }}" class="bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white p-1 border border-red-500 hover:border-transparent rounded inline-block mt-2  cursor-pointer">Dashboard</a>
+        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-400 hover:font-bold hover:text-red-600 cursor-pointer">Dashboard</a>
        </li>
        <!-- Login -->
        <li class="flex items-center">
            @else
-            <a href="{{ route('login') }}" class="bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white p-1 border border-red-500 hover:border-transparent rounded inline-block mt-2  cursor-pointer">Log in</a>
+            <a href="{{ route('login') }}" class="text-sm text-gray-400 hover:font-bold hover:text-red-600 cursor-pointer">Log in</a>
        </li>
-       <!-- Register -->
-       <li class="flex items-center">
-           @if (Route::has('register'))
-            <a href="{{ route('register') }}" class="bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white p-1 border border-red-500 hover:border-transparent rounded inline-block mt-2 lg:mx-4 cursor-pointer">Register</a>
-            @endif
-        </li>
 
         @endauth
         @endif
@@ -79,7 +99,7 @@
 <main>
  <!-- Hero -->
  <div
-   class="relative pt-16 pb-32 flex content-center items-center justify-center"
+   id="hero" class="relative pt-16 pb-32 flex content-center items-center justify-center"
    style="min-height: 95vh"
  >
    <div class="absolute top-0 w-full h-full bg-top bg-cover" style="
@@ -198,7 +218,7 @@
  </section>
 
  <!-- ChoseUs Section Begin -->
-<section class="choseus-section py-16">
+<section id="services" class="choseus-section py-16">
     <div class="container mx-auto">
         <div class="mb-12 text-center">
             <span class="text-gray-600 text-lg font-medium">Why chose us?</span>
@@ -239,7 +259,7 @@
 
 
  <!-- Trainers Section -->
- <section class="pt-20 pb-48">
+ <section id="coachs" class="pt-20 pb-48">
    <div class="container mx-auto px-4">
      <div class="flex flex-wrap justify-center text-center mb-24">
        <div class="w-full lg:w-6/12 px-4">
@@ -319,7 +339,7 @@
  </section>
 
  <!-- Contact Header Section -->
- <section class="pb-20 relative block bg-black text-white">
+ <section id="contact" class="pb-20 relative block bg-black text-white">
    <div
      class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
      style="height: 80px; transform: translateZ(0px)"

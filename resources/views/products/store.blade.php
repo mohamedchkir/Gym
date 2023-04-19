@@ -25,7 +25,6 @@
 
 
         <div class="grid gap-3 grid-cols-1 md:grid-cols-3 sm:grid-cols-2">
-            {{-- @dd('rtrtrtrt') --}}
             @foreach ($products as $product )
             <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="./cart/{{$product->id}}" class="flex justify-center">
