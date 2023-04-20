@@ -16,7 +16,7 @@ class UserController extends Controller
         // Get all users
             $users = User::all();
             foreach($users as $user){
-                if($expired = $user->expire_date < now()){
+                if($user->expire_date < $user->payement_date){
                     $user->status = 'unpayed';
                     $user->save();
                 }
@@ -169,9 +169,10 @@ class UserController extends Controller
 
         if($status=='payed'){
             $user->status='unpayed';
-        }else{
-            $user->status='payed';
+        }elseif($status=='unpayed'){
+            $user->payement_date=date('Y-m-d');
             $user->expire_date=date('Y-m-d', strtotime('+1 month'));
+            $user->status='payed';
         }
 
         // update user

@@ -25,6 +25,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->date('expire_date')->nullable();
+            $table->date('payement_date')->nullable();
         });
     }
 
