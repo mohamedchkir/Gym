@@ -30,69 +30,69 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+                            // Profile
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        //product
+    Route::get('/product', [ProductController::class, 'index']);
+    Route::post('/product', [ProductController::class, 'store']);
+    Route::put('/product/{product}', [ProductController::class, 'update']);
+    Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::get('/product/{id}', [ProductController::class, 'show']);
+
+                //material
+    Route::get('materials', [MaterialController::class, 'index']);
+    Route::post('/material', [MaterialController::class, 'store']);
+    Route::put('/material/{material}', [MaterialController::class, 'update']);
+    Route::delete('/material/{material}', [MaterialController::class, 'destroy'])->name('material.destroy');
+    Route::get('/material/{id}', [MaterialController::class, 'show']);
+
+                    //comment
+    Route::get('comments', [RatingController::class, 'adminComments']);
+    Route::post('/comment', [CommentController::class, 'store']);
+    Route::put('/comment/{comment}', [CommentController::class, 'update']);
+    Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
+    Route::get('/comment/{id}', [CommentController::class, 'show']);
+
+                    //user
+    Route::get('users', [UserController::class, 'index']);
+    Route::post('/user', [UserController::class, 'store']);
+    Route::put('/user/{user}', [UserController::class, 'update']);
+    Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::get('/user/{id}', [UserController::class, 'show']);
+
+
+                    // statistiques
+    Route::get('/dashboard',[StatistqueController::class, 'index']);
+
+
+    // store product
+    Route::get('/store', [ProductController::class, 'storeProduct'])->name('store');
+
+    // cart product
+    Route::get('/cart/{id}', [ProductController::class, 'cart'])->name('cart');
+
+    //show cart product and comment info
+    Route::post('/ratings/store', [RatingController::class, 'store'])->name('ratings.store');
+    Route::get('/ratings/show/{productId}', [RatingController::class, 'showRating'])->name('ratings.show');
 });
 
-                // Route for product
-Route::get('/product', [ProductController::class, 'index']);
-Route::post('/product', [ProductController::class, 'store']);
-Route::put('/product/{product}', [ProductController::class, 'update']);
-Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
-Route::get('/product/{id}', [ProductController::class, 'show']);
 
-               // Route for material
-Route::get('materials', [MaterialController::class, 'index']);
-Route::post('/material', [MaterialController::class, 'store']);
-Route::put('/material/{material}', [MaterialController::class, 'update']);
-Route::delete('/material/{material}', [MaterialController::class, 'destroy'])->name('material.destroy');
-Route::get('/material/{id}', [MaterialController::class, 'show']);
 
-                // Route for comment
-// Route::get('comments', [CommentController::class, 'index']);
-Route::get('comments', [RatingController::class, 'adminComments']);
-Route::post('/comment', [CommentController::class, 'store']);
-Route::put('/comment/{comment}', [CommentController::class, 'update']);
-Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
-Route::get('/comment/{id}', [CommentController::class, 'show']);
-
-                // Route for user
-Route::get('users', [UserController::class, 'index']);
-Route::post('/user', [UserController::class, 'store']);
-Route::put('/user/{user}', [UserController::class, 'update']);
-Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
-Route::get('/user/{id}', [UserController::class, 'show']);
-
-                // route for error404
+                //error404
 Route::fallback(function () {
     return view('error404');
 
 });
 
-                // route for  statistiques
-Route::get('/dashboard',[StatistqueController::class, 'index']);
 
-
-                // store product
-Route::get('/store', [ProductController::class, 'storeProduct'])->name('store');
-
-                // cart product
-Route::get('/cart/{id}', [ProductController::class, 'cart'])->name('cart');
-
-                //shoz cart product and comment info
-// Route::get('/cart/{id}', [CommentController::class, 'indexUser'])->name('cart');
-Route::post('/ratings/store', [RatingController::class, 'store'])->name('ratings.store');
-Route::get('/ratings/show/{productId}', [RatingController::class, 'showRating'])->name('ratings.show');
-
-                // contact us route
-// Route::post('/contact', [ContactUsController::class, 'index'])->name('contact');
+                    //contact us route
 Route::get('contact',[ContactUsController::class, 'contact'])->name('page.contact');
 Route::post('/sendMessage',[ContactUsController::class, 'index'])->name('send.message');
 
-                // Route for Switch status
-Route::Post('/switch/{id}', [UserController::class, 'switchStatus']);
+
 
 
 
