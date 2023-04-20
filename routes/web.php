@@ -91,6 +91,9 @@ Route::get('/ratings/show/{productId}', [RatingController::class, 'showRating'])
 Route::get('contact',[ContactUsController::class, 'contact'])->name('page.contact');
 Route::post('/sendMessage',[ContactUsController::class, 'index'])->name('send.message');
 
+                // Route for Switch status
+Route::Post('/switch/{id}', [UserController::class, 'switchStatus']);
+
 
 
 

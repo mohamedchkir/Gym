@@ -19,10 +19,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('status')->default('payed');
             $table->string('image')->default("image.jpg");
             $table->string('phone')->nullable()->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->date('expire_date')->nullable();
         });
     }
 

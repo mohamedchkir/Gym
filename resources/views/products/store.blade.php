@@ -19,9 +19,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <title>Product Store</title>
     </head>
-    <body>
+    <x-navbar/>
+    <body class=" ">
 
-<x-navbar/>
 
 
         <div class="grid gap-3 grid-cols-1 md:grid-cols-3 sm:grid-cols-2">

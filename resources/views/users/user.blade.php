@@ -79,11 +79,20 @@
                     <td class="px-6 py-4">
                         {{$user->phone}}
                     </td>
+                    <form action="/switch/{{$user->id}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id" value="{{$user->id}}">
                     <td class="px-6 py-4">
                         <div class="flex items-center">
-                            <div class="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div> Online
+                            @if ($user->status == 'payed')
+                            <button class="hover:bg-green-500 border-green-500  border-2 rounded-md px-2 text-black  hover:text-white uppercase " type="submit">{{$user->status}}</button>
+                            @endif
+                            @if ($user->status == 'unpayed')
+                            <button class="hover:bg-red-500 border-red-500 border-2 rounded-md px-2 text-black  hover:text-white uppercase " type="submit">{{$user->status}}</button>
+                            @endif
                         </div>
                     </td>
+                </form>
                     <td class="px-6 py-4">
                         {{$user->created_at->diffForHumans()}}
                     </td>

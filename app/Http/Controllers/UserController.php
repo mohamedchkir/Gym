@@ -15,6 +15,12 @@ class UserController extends Controller
     {
         // Get all users
             $users = User::all();
+            foreach($users as $user){
+                if($expired = $user->expire_date < now()){
+                    $user->status = 'unpayed';
+                    $user->save();
+                }
+            }
 
         // Get all roles
             $roles = Role::all();
@@ -151,8 +157,27 @@ class UserController extends Controller
         return view('users.user', compact('users'));
     }
 
-    public function statistiques()
-    {
 
+
+
+    public function switchStatus(string $id)
+    {
+        // get user
+        $user = User::find($id);
+
+        $status=$user->status;
+
+        if($status=='payed'){
+            $user->status='unpayed';
+        }else{
+            $user->status='payed';
+            $user->expire_date=date('Y-m-d', strtotime('+1 month'));
+        }
+
+        // update user
+        $user->save();
+
+        // return view flash success message
+        return redirect()->back()->with('success', 'User status updated successfully');
     }
 }
