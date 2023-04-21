@@ -30,7 +30,7 @@
                 <form class="sm:pr-3" action="#" method="GET">
                     <label for="products-search" class="sr-only">Search</label>
                     <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
-                        <input type="text" name="email" id="products-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for comments">
+                        <input type="text" name="email" id="search-input" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for comments">
                     </div>
                 </form>
 
@@ -40,7 +40,7 @@
 </div>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <table  id="comments-table"  class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -67,33 +67,28 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($comments as $comment)
+            @foreach ($commentsData as $comment)
 
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="px-6 py-4">
-                    {{$comment->text}}
+                    {{ $comment['comment'] }}
                 </td>
                 <td class="px-6 py-4">
-                    {{$comment->user->name}}
+                    {{ $comment['user_name'] }}
                 </td>
                 <td class="px-6 py-4">
-                    {{$comment->user->email}}
+                    {{ $comment['user_email'] }}
                 </td>
                 <td class="px-6 py-4">
-                    {{$comment->user->phone}}
+                    {{ $comment['user_phone'] }}
                 </td>
-                </th>
-                <td class="px-6 py-4">
-                    {{$comment->product->id}}
-                </td>
-                </th>
 
                 <td class="px-6 py-4">
-                    {{$comment->created_at->diffForHumans()}}
+                    {{ $comment['created_at'] }}
                 </td>
                 <td class="p-4 space-x-2 whitespace-nowrap">
 
-                    <form action="{{ route('comment.destroy', $comment->id) }}"
+                    <form action="{{ route('comment.destroy', $comment['id']) }}"
                         class="inline-flex items-center  "
                         method="POST" onsubmit="return confirm('are You sur?')">
                         @csrf
@@ -108,10 +103,10 @@
             </tr>
             @endforeach
 
-
         </tbody>
 
 
     </table>
 </div>
+
 </x-dashboard-layout>

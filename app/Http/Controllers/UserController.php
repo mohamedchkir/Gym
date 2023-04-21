@@ -53,6 +53,19 @@ class UserController extends Controller
         // assign role  to user
         $user->assignRole($request->role);
 
+        // hash password
+        $user->password = bcrypt($request->password);
+
+        // upload image
+        $image=$request->file('image');
+        if($image){
+            $new_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images/users'), $new_name);
+            $user->image = $new_name;
+        }
+
+        // save user
+        $user->save();
 
         // return view flash success message
         return redirect()->back()->with('success', 'User created successfully');
@@ -69,7 +82,6 @@ class UserController extends Controller
 ]);
 
 }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -94,9 +106,6 @@ class UserController extends Controller
 
         // update user image
        $image=$request->file('image');
-
-
-
         // remove all roles
         $user->removeRole($user->roles->first()->name);
 

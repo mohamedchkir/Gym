@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use willvincent\Rateable\Rating;
 use Illuminate\Support\Facades\Auth;
 
 class RatingController extends Controller
@@ -66,20 +67,32 @@ class RatingController extends Controller
                     'comment' => $rating->comment,
                     'created_at' => $rating->created_at->diffForHumans(),
                     'user_name' => $rating->user->name,
+                    'user_email'=> $rating->user->email,
+                    'user_phone'=> $rating->user->phone,
                     'image' => $rating->user->image,
                 ];
             }
         }
-        dd($commentsData);
+        // dd($commentsData);
+        return view('comments.comment', ['commentsData' => $commentsData]);
 
-        return view('comments.comment', compact('commentsData'));
     }
 
-    public function DeleteComment($id)
+    public function deleteComment($id)
     {
-        $comment = Product::find($id);
-        $comment->delete();
-        return redirect()->back();
+        $rating = Rating::find($id);
 
+        if (!$rating) {
+            return back()->with('error', 'Comment not found!');
+        }
+
+        $rating->delete();
+
+        return back()->with('success', 'Comment deleted successfully!');
     }
+
+   
+
+
+
 }

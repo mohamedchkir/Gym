@@ -19,6 +19,7 @@ class ContactUsController extends Controller
     function index(Request $request)
 
     {
+        
         $request->validate([
             'name' => 'required',
             'email' => 'required',
