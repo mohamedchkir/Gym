@@ -82,6 +82,9 @@
                 <td class="px-6 py-4">
                     {{ $comment['user_phone'] }}
                 </td>
+                <td class="px-6 py-4">
+                    {{ $comment['user_phone'] }}
+                </td>
 
                 <td class="px-6 py-4">
                     {{ $comment['created_at'] }}

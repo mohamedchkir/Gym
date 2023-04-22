@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Material;
 
 
-use App\Models\Programme;
-use Illuminate\Http\Request;
+
+use willvincent\Rateable\Rating;
 
 class StatistqueController extends Controller
 {
@@ -34,7 +33,7 @@ class StatistqueController extends Controller
 
 
         // Get the total number of comments
-        $comments_count = Comment::count();
+        $comments_count = Rating::count();
 
 
         // Get the total number of users

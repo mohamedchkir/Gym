@@ -24,11 +24,11 @@
 
 
 
-        <div class="grid gap-3 grid-cols-1 md:grid-cols-3 sm:grid-cols-2">
+        <div class="container mx-auto p-6 grid grid-cols-2 gap-4">
             @foreach ($products as $product )
-            <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="col-span-1 flex flex-col  p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="./cart/{{$product->id}}" class="flex justify-center">
-                    <img class="rounded-t-lg" width="75%" src="{{$product->image}}" alt="product image" />
+                    <img class="rounded-t-lg" height="75%" src="{{$product->image}}" alt="product image" />
                 </a>
                 <div class="px-5 pb-5">
                     <a href="#">
