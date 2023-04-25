@@ -13,8 +13,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        // Get all users
-            $users = User::all();
+        // Get users with role of user
+
+            $users = User::role('user')->get();
             foreach($users as $user){
                 if($user->expire_date < $user->payement_date){
                     $user->status = 'unpayed';
@@ -71,6 +72,15 @@ class UserController extends Controller
             $new_name = rand() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('assets/images/users'), $new_name);
             $user->image = $new_name;
+        }
+
+        // check user role and redirect to view
+        if ($request->role == 'user') {
+            return redirect()->view('users.user')->with('success', 'User created successfully');
+        } else if ($request->role == 'coach') {
+            return redirect()->view('users.coachs')->with('success', 'Coach created successfully');
+        }elseif ($request->role == 'admin') {
+            return redirect()->view('users.admins')->with('success', 'admin created successfully');
         }
 
         // save user
@@ -204,4 +214,34 @@ class UserController extends Controller
         // return view flash success message
         return redirect()->back()->with('success', 'User status updated successfully');
     }
+
+    public function admins(){
+
+        // return users with role of admin
+        $admins = User::role('admin')->get();
+
+
+        // return roles
+        $roles = Role::all();
+
+        // return coaches
+        $coaches = User::role('coach')->get();
+
+
+        // return view
+        return view('users.admins', compact('admins', 'roles', 'coaches'));
+
+    }
+
+    public function coaches(){
+
+        // return users with role of coach
+        $coaches = User::role('coach')->get();
+
+        // return view
+        return view('users.coaches', compact('coaches'));
+
+    }
+
+
 }
