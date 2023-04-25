@@ -80,6 +80,14 @@ Route::middleware('auth')->group(function () {
                 Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
                 Route::get('/user/{id}', [UserController::class, 'show']);
 
+                // Route for admins
+                Route::get('admins', [UserController::class, 'admins']);
+
+                // Route for coaches
+                Route::get('coaches', [UserController::class, 'coaches']);
+
+
+
 
 });
 
