@@ -117,14 +117,29 @@
                     </a>
                 </li>
 
-
+           <li>
+            <button type="button" class="{{request()->is('users') ? 'bg-gray-100 dark:bg-gray-700':'' }}  {{request()->is('admins') ? 'bg-gray-100 dark:bg-gray-700':'' }} {{request()->is('coachs') ? 'bg-gray-100 dark:bg-gray-700':'' }}  flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700" aria-controls="dropdown-crud" data-collapse-toggle="dropdown-crud">
+                <i class=" fa-solid fa-users w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
+                <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>CRUD</span>
+                <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            <ul id="dropdown-crud" class="space-y-2 py-2 //here//">
                 <li>
-                    <a href="/users" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <i class="fa-solid fa-users w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
-                        <span class="flex-1 ml-3 whitespace-nowrap">USERS</span>
-                        <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
-                    </a>
-           </li>
+                    <a href="/admins"
+                        class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Admins</a>
+                </li>
+                <li>
+                    <a href="/coach"
+                        class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Coachs</a>
+                </li>
+                <li>
+                    <a href="/users"
+                        class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Users</a>
+                </li>
+            </ul>
+        </li>
          </ul>
            <ul class="space-y-2 font-medium row-start-2 grid self-end">
                <li>
