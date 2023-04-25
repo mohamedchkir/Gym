@@ -85,10 +85,10 @@
                     <td class="px-6 py-4">
                         <div class="flex items-center">
                             @if ($user->status == 'payed')
-                            <button class="hover:bg-green-500 border-green-500  border-2 rounded-md px-2 text-black  hover:text-white uppercase " type="submit">{{$user->status}}</button>
+                            <button class="bg-green-500 border-green-500  border-2 rounded-md px-2 text-black  hover:text-white uppercase " type="submit">{{$user->status}}</button>
                             @endif
                             @if ($user->status == 'unpayed')
-                            <button class="hover:bg-red-500 border-red-500 border-2 rounded-md px-2 text-black  hover:text-white uppercase " type="submit">{{$user->status}}</button>
+                            <button class="bg-red-500 border-red-500 border-2 rounded-md px-2 text-black  hover:text-white uppercase " type="submit">{{$user->status}}</button>
                             @endif
                         </div>
                     </td>
@@ -144,7 +144,7 @@
             </div>
             <div>
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">password</label>
-                <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password" required="">
+                <input type="password" name="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password">
             </div>
 
             <div>
@@ -161,6 +161,15 @@
                 <select id="role" name="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     @foreach ($roles as $role)
                         <option value="{{ $role->name }}">{{ $role->name }}</option>
+
+                    @endforeach
+                </select>
+            </div>
+            <div id="coach" style="display:none">
+                <label for="coach" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">coachs</label>
+                <select id="coach-select" name="coach" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    @foreach ($coaches as $coach)
+                        <option value="{{ $coach->id }}">{{ $coach->name }}</option>
 
                     @endforeach
                 </select>
@@ -221,11 +230,23 @@
                $('#email').val(data.user.email);
                $('#phone').val(data.user.phone);
                $('#password').val(data.user.password);
-                $('#role').val(data.role);
+               $('#role').val(data.role);
+               $('#role').trigger('change');
+                $('#coach-select').val(data.user.coach_id);
 
 
            }
        });
    }
+//    if #role value = user show coach select
+    $(document).ready(function() {
+        $('#role').change(function() {
+            if ($(this).val() == 'user') {
+                $('#coach').show();
+            } else {
+                $('#coach').hide();
+            }
+        });
+    });
            </script>
 </x-dashboard-layout>

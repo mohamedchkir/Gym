@@ -94,8 +94,8 @@ Route::middleware('auth')->group(function () {
 
                 // contact us route
 // Route::post('/contact', [ContactUsController::class, 'index'])->name('contact');
-Route::get('contact',[ContactUsController::class, 'contact'])->name('page.contact');
-Route::post('/sendMessage',[ContactUsController::class, 'index'])->name('send.message');
+// Route::get('contact',[ContactUsController::class, 'contact'])->name('page.contact');
+Route::get('/sendMessage',[ContactUsController::class, 'index'])->name('send.message');
 
 
 

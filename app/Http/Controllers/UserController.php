@@ -28,10 +28,14 @@ class UserController extends Controller
         // get number of users
             $usersCount = User::count();
 
+            // get all user that have role of coach
+            $coaches = User::role('coach')->get();
+            // dd($coaches);
+
 
 
         // Return view
-            return view('users.user', compact('users', 'roles', 'usersCount'));
+            return view('users.user', compact('users', 'roles', 'usersCount' ,'coaches'));
     }
 
     /**
@@ -47,6 +51,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->role=='user'){
+            // add coach_id to request
+            $request['coach_id'] = $request->coach;
+        }
         //store a new user
         $user = User::create($request->all());
 
@@ -55,6 +63,7 @@ class UserController extends Controller
 
         // hash password
         $user->password = bcrypt($request->password);
+
 
         // upload image
         $image=$request->file('image');
@@ -118,6 +127,11 @@ class UserController extends Controller
         }else{
             $request["password"] = $user->password;
         }
+        if($request->role=='user'){
+            // add coach_id to user
+            $request['coach_id'] = $request->coach;
+        }
+        // dd($request->all());
 
         // dd($request->all());
         //update user

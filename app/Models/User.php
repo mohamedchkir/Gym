@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'image',
         'phone',
+        'coach_id',
     ];
 
     /**

@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('status')->default('payed');
             $table->string('image')->default("image.jpg");
             $table->string('phone')->nullable()->nullable();
+            // foreign key coach_id referenced to user.id and nullable
+            $table->unsignedBigInteger("coach_id")->nullable();
+            $table->foreign("coach_id")->references("id")->on("users")->onDelete("cascade");
             $table->rememberToken();
             $table->timestamps();
             $table->date('expire_date')->nullable();

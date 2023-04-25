@@ -430,7 +430,7 @@
            data-aos="fade-up-right"
          >
          <form action="{{route('send.message')}}" method="¨POST">
-            @csrf
+            {{ csrf_field() }}
            <div class="flex-auto p-5 lg:p-10 bg-red-500 text-white">
              <h4 class="text-2xl font-semibold">Want to work with us?</h4>
              <p class="leading-relaxed mt-1 mb-4">
