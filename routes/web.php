@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RatingController;
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\StatistqueController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,6 +88,10 @@ Route::middleware('auth')->group(function () {
 
 
 
+                Route::get('cart', [CartController::class, 'index'])->name('cart');
+                Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart');
+                Route::put('update-cart/{id}', [CartController::class, 'updateCart'])->name('update.cart');
+                Route::delete('deleteFromCart/{id}', [CartController::class, 'deleteFromCart'])->name('cart.destroy');
 
 });
 

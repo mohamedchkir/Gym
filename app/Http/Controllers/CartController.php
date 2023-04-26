@@ -16,15 +16,16 @@ class CartController extends Controller
         $cart = session()->get('cart');
 
         // If the cart does not exist, create an empty cart
-        if (!$cart) {
-            $cart = [
-                'items' => [],
-                'total' => 0
-            ];
-        }
+    $cart = session()->get('cart');
+    if (!$cart) {
+        $cart = [
 
-        return view('cart.cart', compact('cart'));
+        ];
     }
+
+    return view('cart.cart')->with('cart', $cart);
+}
+
 
     public function addToCart(Request $request, $id)
     {
@@ -36,7 +37,7 @@ class CartController extends Controller
                 $id => [
                     "item_id"   => $product->id,
                     "name" => $product->name,
-                    "product" => $product->price,
+                    "price" => $product->price,
                     "quantity" => 1,
                     "image" => $product->image,
                 ]
