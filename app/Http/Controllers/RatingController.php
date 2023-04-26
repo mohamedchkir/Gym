@@ -12,6 +12,9 @@ class RatingController extends Controller
     //
     public function store(Request $request)
     {
+        //check if user has permission 'create comment'
+            if(auth()->user()->hasPermissionTo('create comments')){
+
         // check if user id logged in
         if (Auth::check()) {
             $user = Auth::user();
@@ -27,9 +30,16 @@ class RatingController extends Controller
             return 'not logged in';
         }
     }
+    else{
+        abort(403, 'Unauthorized action.');
+    }
+}
 
     public function showRating($productId)
     {
+        // check if user has permission 'view comment'
+        if (auth()->user()->hasPermissionTo('view comments')) {
+
         $comments = Product::with('ratings.user')->findOrFail($productId);
         $averageRating = $comments->averageRating;
 
@@ -51,8 +61,12 @@ class RatingController extends Controller
             'latest_comments' => $latestCommentsData,
         ]);
     }
+}
 
     public function adminComments(){
+
+        // check if user has permission 'view comment'
+        if (auth()->user()->hasPermissionTo('view comments')) {
 
         // get all comments with user and store
         $comments = Product::with('ratings.user')->get();
@@ -77,9 +91,16 @@ class RatingController extends Controller
         return view('comments.comment', ['commentsData' => $commentsData]);
 
     }
+    else{
+        abort(403, 'Unauthorized action.');
+    }
+}
 
     public function deleteComment($id)
     {
+        // check if user has permission 'delete comment'
+        if (auth()->user()->hasPermissionTo('delete comments')) {
+
         $rating = Rating::find($id);
 
         if (!$rating) {
@@ -90,8 +111,12 @@ class RatingController extends Controller
 
         return back()->with('success', 'Comment deleted successfully!');
     }
+    else{
+        abort(403, 'Unauthorized action.');
+    }
+}
 
-   
+
 
 
 

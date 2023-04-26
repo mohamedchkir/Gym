@@ -13,6 +13,10 @@ class StatistqueController extends Controller
 {
     public function index()
     {
+
+        // check if user has permission 'view-statistiques'
+
+        // get all products
         $products = Product::all();
 
         // get the sum of the quantity of all products
@@ -47,7 +51,6 @@ class StatistqueController extends Controller
 
         // Get the total number of users with coach role
         $coachCount = User::role('coach')->count();
-
 
         // get number of materials
         $totalMaterialQuantity = Material::sum('quantity');

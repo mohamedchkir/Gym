@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CoachController extends Controller
 {
@@ -80,5 +82,23 @@ class CoachController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function users()
+    {
+        $user = Auth::user();
+        $roles = $user->getRoleNames()->toArray();
+
+        // condition for check user is not coach redirect him to store
+        if(in_array('admin', $roles)){
+            return redirect()->route('dashboard');
+        }else if(in_array('user', $roles)){
+            return redirect()->route('store');
+        }
+
+        $users = User::where('coach_id', $user->id)->get();
+
+        return view('users.users_coach', compact('users'));
     }
 }

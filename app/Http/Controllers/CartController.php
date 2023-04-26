@@ -13,84 +13,115 @@ class CartController extends Controller
      */
     public function index()
     {
+        // check if user has permission 'view-cart'
+        if (auth()->user()->hasPermissionTo('view cart')) {
+
+            $cart = session()->get('cart');
+            // If the cart does not exist, create an empty cart
         $cart = session()->get('cart');
+        if (!$cart) {
+            $cart = [
 
-        // If the cart does not exist, create an empty cart
-    $cart = session()->get('cart');
-    if (!$cart) {
-        $cart = [
+            ];
+        }
+        return view('cart.cart')->with('cart', $cart);
 
-        ];
+        }else{
+
+            abort(403, 'Unauthorized action.');
+
     }
-
-    return view('cart.cart')->with('cart', $cart);
 }
 
 
     public function addToCart(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
+        // check if user has permission 'add-to-cart'
+        if (auth()->user()->hasPermissionTo('add to cart')) {
 
-        $cart = session()->get('cart');
-        if(!$cart) {
-            $cart = [
-                $id => [
-                    "item_id"   => $product->id,
-                    "name" => $product->name,
-                    "price" => $product->price,
-                    "quantity" => 1,
-                    "image" => $product->image,
-                ]
+            $product = Product::findOrFail($id);
+
+            $cart = session()->get('cart');
+            if(!$cart) {
+                $cart = [
+                    $id => [
+                        "item_id"   => $product->id,
+                        "name" => $product->name,
+                        "price" => $product->price,
+                        "quantity" => 1,
+                        "image" => $product->image,
+                    ]
+                ];
+                session()->put('cart', $cart);
+                return redirect()->back()->with('success', 'Product added to cart successfully!');
+            }
+            if(isset($cart[$id])) {
+                $cart[$id]['quantity']++;
+                session()->put('cart', $cart);
+                return redirect()->back()->with('success', 'Product quantity updated successfully!');
+            }
+            $cart[$id] = [
+                "item_id"   => $product->id,
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->image,
             ];
             session()->put('cart', $cart);
             return redirect()->back()->with('success', 'Product added to cart successfully!');
+        }else{
+
+                abort(403, 'Unauthorized action.');
         }
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-            session()->put('cart', $cart);
-            return redirect()->back()->with('success', 'Product quantity updated successfully!');
-        }
-        $cart[$id] = [
-            "item_id"   => $product->id,
-            "name" => $product->name,
-            "quantity" => 1,
-            "price" => $product->price,
-            "image" => $product->image,
-        ];
-        session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
-    }
+}
 
     public function updateCart(Request $request, $id)
     {
-        $cart = session()->get('cart');
+        // check if user has permission 'update-cart'
+        if (auth()->user()->hasPermissionTo('update cart')) {
 
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity'] = $request->input('quantity');
+            $cart = session()->get('cart');
 
-            $product = Product::find($id);
-            if ($product->quantity < $cart[$id]['quantity']) {
-                return redirect()->route('cart')->with('error', "La quantité sélectionnée n'est pas disponible en stock !");
+            if(isset($cart[$id])) {
+                $cart[$id]['quantity'] = $request->input('quantity');
+
+                $product = Product::find($id);
+                if ($product->quantity < $cart[$id]['quantity']) {
+                    return redirect()->route('cart')->with('error', "La quantité sélectionnée n'est pas disponible en stock !");
+                }
+
+                session()->put('cart', $cart);
+                return redirect()->route('cart')->with('success', 'Cart updated successfully!');
             }
 
-            session()->put('cart', $cart);
-            return redirect()->route('cart')->with('success', 'Cart updated successfully!');
-        }
-
-        return redirect()->route('cart.index')->with('error', 'Invalid cart item!');
+            return redirect()->route('cart.index')->with('error', 'Invalid cart item!');
     }
+    else{
+
+        abort(403, 'Unauthorized action.');}
+}
 
     public function deleteFromCart($id)
     {
-        $cart = session()->get('cart');
 
-        if(isset($cart[$id])) {
-        unset($cart[$id]);
-        session()->put('cart', $cart);
+        // check if user has permission 'delete-from-cart'
+        if (auth()->user()->hasPermissionTo('delete from cart')) {
+
+            $cart = session()->get('cart');
+
+            if(isset($cart[$id])) {
+                unset($cart[$id]);
+                session()->put('cart', $cart);
+            }
+
+            return redirect()->back()->with('success', 'Product removed from cart successfully!');
+        }else{
+
+                abort(403, 'Unauthorized action.');
         }
-
-        return redirect()->back()->with('success', 'Product removed from cart successfully!');
-    }
 
 
 }
+}
+
+

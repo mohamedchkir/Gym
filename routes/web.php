@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CoachController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RatingController;
@@ -23,11 +24,7 @@ use App\Http\Controllers\CartController;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('maindash');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('welcome');
 
 Route::middleware('auth')->group(function () {
 
@@ -39,7 +36,7 @@ Route::middleware('auth')->group(function () {
 
 
                 // route for  statistiques
-                Route::get('/dashboard',[StatistqueController::class, 'index']);
+                Route::get('/dashboard',[StatistqueController::class, 'index'])->name('dashboard')->middleware(['role:admin']);
 
 
                 // store product
@@ -92,6 +89,11 @@ Route::middleware('auth')->group(function () {
                 Route::get('add-to-cart/{id}', [CartController::class, 'addToCart'])->name('add.to.cart');
                 Route::put('update-cart/{id}', [CartController::class, 'updateCart'])->name('update.cart');
                 Route::delete('deleteFromCart/{id}', [CartController::class, 'deleteFromCart'])->name('cart.destroy');
+
+
+
+                // this route for get all users for the auth coach
+                Route::get('/coach/users', [CoachController::class, 'users'])->name('coach.users');
 
 });
 

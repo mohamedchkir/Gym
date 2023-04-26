@@ -17,9 +17,15 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        //
-        $materials = Material::all();
-        return view('materials.material', compact('materials'));
+        //check if user has permission 'view-material'
+        if (auth()->user()->hasPermissionTo('view Materials')) {
+
+            $materials = Material::all();
+            return view('materials.material', compact('materials'));
+        } else {
+
+            abort(403, 'Unauthorized action.');
+        }
     }
 
     /**
@@ -40,29 +46,29 @@ class MaterialController extends Controller
      */
     public function store(StoreMaterialRequest $request)
     {
-        //image upload
-        // $material_image = $request->file('image');
-        // $name_gen = hexdec(uniqid());
-        // $img_ext = strtolower($material_image->getClientOriginalExtension());
-        // $img_name = $name_gen . '.' . $img_ext;
-        // $location = 'assets/images/materials/';
-        // $last_img = $location . $img_name;
-        // $material_image->move($location, $img_name);
-        $name = '';
-        $file = $request->image;
-        $name = $file->getClientOriginalName();
-        $file->move(public_path('assets/images/materials'), $name);
+        // check if user has permission 'add-material'
+        if (auth()->user()->hasPermissionTo('create Materials')) {
 
-        //store data
-        Material::create([
-            'name' => $request->name,
-            'quantity' => $request->quantity,
-            'price' => $request->price,
-            'image' => 'assets/images/materials/' . $name,
-            'description' => $request->description,
-        ]);
+            //image upload
+            $name = '';
+            $file = $request->image;
+            $name = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/materials'), $name);
 
-        return redirect()->back()->with('success', 'Material Added Successfully');
+            //store data
+            Material::create([
+                'name' => $request->name,
+                'quantity' => $request->quantity,
+                'price' => $request->price,
+                'image' => 'assets/images/materials/' . $name,
+                'description' => $request->description,
+            ]);
+
+            return redirect()->back()->with('success', 'Material Added Successfully');
+        } else {
+
+            abort(403, 'Unauthorized action.');
+        }
 
     }
 
@@ -74,11 +80,16 @@ class MaterialController extends Controller
      */
     public function show($id)
     {
+        // check if user has permission 'view-material'
+        if (auth()->user()->hasPermissionTo('view Materials')) {
+
+        // get material by id
         $material=Material::find($id);
         // return json response to ajax
         return response()->json($material);
 
     }
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -100,28 +111,13 @@ class MaterialController extends Controller
      */
     public function update(UpdateMaterialRequest $request, Material $material)
     {
+        //check if user has permission 'edit-material'
+        if (auth()->user()->hasPermissionTo('edit Materials')) {
+
+
         //image upload
         $image = $material->image;
 
-        //check if image is not null and update data
-        // if ($request->file('image')) {
-        //     Storage::delete($material->image);
-        //     $image = $request->file('image')->move('assets/images/materials');
-        //     $material->name = $request->name;
-        //     $material->price = $request->price;
-        //     $material->quantity = $request->quantity;
-        //     $material->image = $request->$image;
-        //     $material->description = $request->description;
-        //     $material->save();
-        //     return redirect()->route('admin.materials.index')->with('warning', 'Update successfully');
-        // } else {
-        //     $material->name = $request->name;
-        //     $material->price = $request->price;
-        //     $material->quantity = $request->quantity;
-        //     $material->description = $request->description;
-        //     $material->save();
-        //     return redirect()->route('admin.materials.index')->with('warning', 'Update successfully');
-        // }
         if ($request->hasFile('image')) {
             $file = $request->image;
             $image = $file->getClientOriginalName();
@@ -135,7 +131,10 @@ class MaterialController extends Controller
             $material->description = $request->description;
             $material->save();
             return redirect()->back()->with('warning', 'Update successfully');
+        } else {
 
+                abort(403, 'Unauthorized action.');
+            }
 
 
     }
@@ -149,13 +148,22 @@ class MaterialController extends Controller
      */
     public function destroy(Material $material)
     {
+        // check if user has permission 'delete-material'
+        if (auth()->user()->hasPermissionTo('delete Materials')) {
 
         $material->delete();
         return redirect()->back()->with('danger','Material deleted successfully');
     }
+    else {
+
+                abort(403, 'Unauthorized action.');
+            }
+    }
 
     public function statistiques()
     {
+        // check if user has permission 'view-material'
+        if (auth()->user()->hasPermissionTo('view Materials')) {
 
         // get number of materials
         $materials_count = Material::count();
@@ -173,7 +181,11 @@ class MaterialController extends Controller
         return view('maindash', compact('materials', 'materials_count', 'materials_price', 'max_price', 'min_price'));
 
 
+        }
+        else {
 
+                abort(403, 'Unauthorized action.');
+            }
 
     }
 }

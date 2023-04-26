@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // close
+
     const close = document.querySelectorAll('.navbar-close');
     const backdrop = document.querySelectorAll('.navbar-backdrop');
 
@@ -39,9 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
- });
+});
 
-//aos animation
+//AOS animation
   AOS.init({
     delay: 200,
     duration: 1200,
@@ -52,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-// JavaScript code for dropdown menu in responsive design
+// for dropdown menu in responsive design
 const toggleBtn = document.querySelector('.toggle-btn');
 const toggleBtnIcon = document.querySelector('.toggle-btn i');
 const dropDownMenu = document.querySelector('.dropdown-menu');
@@ -64,7 +65,7 @@ toggleBtn.onclick = function() {
    toggleBtnIcon.classList = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
 }
 
-// JavaScript code to change header color on scroll
+// change header color on scroll
 const header = document.querySelector('.header');
 
 window.onscroll = function() {

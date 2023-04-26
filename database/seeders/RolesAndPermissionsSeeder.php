@@ -47,7 +47,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
 
         // Comments Permissions
-        $viewComments = Permission::create(['name' => 'view Comments']);
+        $viewComments = Permission::create(['name' => 'create Comments']);
         $createComments = Permission::create(['name' => 'create Comments']);
         $editComments = Permission::create(['name' => 'edit Comments']);
         $deleteComments = Permission::create(['name' => 'delete Comments']);
@@ -75,17 +75,27 @@ class RolesAndPermissionsSeeder extends Seeder
         //payement Permissions
         $makepayements = Permission::create(['name' => 'make payements']);
 
+        //Cart Permissions
+        $viewcart = Permission::create(['name' => 'view cart']);
+        $addtocart = Permission::create(['name' => 'add to cart']);
+        $deletefromcart = Permission::create(['name' => 'delete from cart']);
+        $updatecart = Permission::create(['name' => 'update cart']);
+
 
         // Create Roles
         $adminRole = Role::create(['name' => 'admin']);
         $coachRole = Role::create(['name' => 'coach']);
         $userRole = Role::create(['name' => 'user']);
 
+        // statistics
+        $viewstatistics = Permission::create(['name' => 'view statistics']);
+
+
 
 
         // Assign Permissions to Roles
         $adminRole->syncPermissions(Permission::all());
         $coachRole->syncPermissions([$viewCoachs , $deleteCoachs , $editCoachs, $viewProgramme ,$createProgramme , $editProgramme ,$deleteProgramme]);
-        $userRole->syncPermissions([$viewCoachs , $viewProgramme, $viewComments , $createComments , $editComments , $deleteComments , $viewProduct, $makepayements]);
+        $userRole->syncPermissions([$viewCoachs , $viewProgramme, $viewComments , $createComments , $editComments , $deleteComments , $viewProduct, $makepayements, $viewcart, $addtocart, $deletefromcart, $updatecart]);
     }
 }

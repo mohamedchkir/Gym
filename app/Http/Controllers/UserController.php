@@ -238,8 +238,11 @@ class UserController extends Controller
         // return users with role of coach
         $coaches = User::role('coach')->get();
 
+        // return roles
+        $roles = Role::all();
+
         // return view
-        return view('users.coaches', compact('coaches'));
+        return view('users.coaches', compact('coaches', 'roles'));
 
     }
 
