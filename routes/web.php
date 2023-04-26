@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/store', [ProductController::class, 'storeProduct'])->name('store');
 
                 // cart product
-                Route::get('/cart/{id}', [ProductController::class, 'cart'])->name('cart');
+                Route::get('/cart/{id}', [ProductController::class, 'cart'])->name('cart.details');
 
                 //show cart product and comment info
                 Route::post('/ratings/store', [RatingController::class, 'store'])->name('ratings.store');
@@ -74,17 +74,17 @@ Route::middleware('auth')->group(function () {
                 Route::delete('/comment/{comment}', [RatingController::class, 'deleteComment'])->name('comment.destroy');
 
                 // Route for user
-                Route::get('users', [UserController::class, 'index']);
+                Route::get('users', [UserController::class, 'index'])->name('users.index');
                 Route::post('/user', [UserController::class, 'store']);
                 Route::put('/user/{user}', [UserController::class, 'update']);
                 Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
                 Route::get('/user/{id}', [UserController::class, 'show']);
 
                 // Route for admins
-                Route::get('admins', [UserController::class, 'admins']);
+                Route::get('admins', [UserController::class, 'admins'])->name('admins.index');
 
                 // Route for coaches
-                Route::get('coaches', [UserController::class, 'coaches']);
+                Route::get('coaches', [UserController::class, 'coaches'])->name('coaches.index');
 
 
 

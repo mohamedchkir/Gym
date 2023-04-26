@@ -74,17 +74,17 @@ class UserController extends Controller
             $user->image = $new_name;
         }
 
-        // check user role and redirect to view
-        if ($request->role == 'user') {
-            return redirect()->view('users.user')->with('success', 'User created successfully');
-        } else if ($request->role == 'coach') {
-            return redirect()->view('users.coachs')->with('success', 'Coach created successfully');
-        }elseif ($request->role == 'admin') {
-            return redirect()->view('users.admins')->with('success', 'admin created successfully');
-        }
-
         // save user
         $user->save();
+
+        // check user role and redirect to view
+        if ($request->role == 'user') {
+            return redirect()->route('users.index')->with('success', 'User created successfully');
+        } else if ($request->role == 'coach') {
+            return redirect()->route('coaches.index')->with('success', 'Coach created successfully');
+        }elseif ($request->role == 'admin') {
+            return redirect()->route('admins.index')->with('success', 'admin created successfully');
+        }
 
         // return view flash success message
         return redirect()->back()->with('success', 'User created successfully');

@@ -29,9 +29,13 @@
 <body>
 
     <div class="h-screen bg-gray-100 pt-20">
-        @foreach(session('cart') as $id => $item)
 
-    <h1 class="mb-10 text-center text-2xl font-bold"> Cart Items</h1>
+        @if (session('cart'))
+
+
+
+        <h1 class="mb-10 text-center text-2xl font-bold"> Cart Items</h1>
+        @foreach(session('cart') as $id => $item)
     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
       <div class="rounded-lg md:w-2/3">
         <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
@@ -56,13 +60,16 @@
                         @method('DELETE')
                         <button type="submit" ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg></i></button>
+                        </svg></button>
                       </form>
               </div>
             </div>
           </div>
         </div>
         @endforeach
+        @else
+        <h1 class="mb-10 text-center text-2xl font-bold"> Cart is Empty</h1>
+        @endif
       </div>
 
       <!-- Sub total -->

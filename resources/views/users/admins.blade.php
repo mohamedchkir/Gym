@@ -64,7 +64,7 @@
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                     <th scope="row" class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
-                        <img class="w-10 h-10 rounded-full" src="{{asset('assets/images/admins/'.$admin->image)}}" alt="Jese image">
+                        <img class="w-10 h-10 rounded-full" src="{{asset('assets/images/users/'.$admin->image)}}" alt="Jese image">
                         <div class="pl-3">
                             <div class="text-base font-semibold">{{$admin->name}}</div>
                             <div class="font-normal text-gray-500">{{$admin->email}}</div>
@@ -77,7 +77,7 @@
                         {{$admin->created_at->diffForHumans()}}
                     </td>
                     <td class="p-4 space-x-2 whitespace-nowrap">
-                        <button type="button" data-drawer-target="admin-modal" onclick="editeadmin({{$admin->id}})" data-drawer-show="admin-modal" aria-controls="admin-modal" data-drawer-placement="right" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-yellow-200 hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-300 dark:bg-yellow-300 dark:hover:bg-yellow-400 dark:focus:ring-blue-800">
+                        <button type="button" data-drawer-target="admin-modal" onclick="editeAdmin({{$admin->id}})" data-drawer-show="admin-modal" aria-controls="admin-modal" data-drawer-placement="right" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-yellow-200 hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-300 dark:bg-yellow-300 dark:hover:bg-yellow-400 dark:focus:ring-blue-800">
                             <svg class="w-4 h-4 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
 
                         </button>
@@ -110,9 +110,9 @@
         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
         <span class="sr-only">Close menu</span>
     </button>
-    <form action="/admin" method="POST" id="admin_form" enctype="multipart/form-data">
+    <form action="/user" method="POST" id="admin_form" enctype="multipart/form-data">
         @csrf
-        @method('POST')
+        @method('PUT')
         <div class="space-y-4">
             <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
@@ -174,12 +174,10 @@
 
 
    // get admin information using ajax
-   function editeadmin(id) {
-         // show update button
-            $("input[name='_method']").val('PUT');
+   function editeAdmin(id) {
 
        $.ajax({
-           url: '/admins/' + id,
+           url: '/user/' + id,
            type: 'GET',
            dataType: 'json',
            complete: function(data) {
@@ -188,7 +186,7 @@
            },
            success: function(data) {
                $('#admin_id').val(data.user.id);
-               $('#admin_form').attr('action', '/admins/' + data.user.id);
+               $('#admin_form').attr('action', '/user/' + data.user.id);
                $('#image').attr('src', data.user.image);
                $('#name').val(data.user.name);
                $('#email').val(data.user.email);
