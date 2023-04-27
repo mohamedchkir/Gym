@@ -47,9 +47,28 @@
             </div>
             <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
               <div class="flex items-center border-gray-100">
-                <span class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"> - </span>
-                <input class="h-8 w-8 border bg-white text-center text-xs outline-none" type="number" value="2" min="1" />
-                <span class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"> + </span>
+                <form action="{{ route('update.cart', $id) }}" class="d-flex gap-5 gap-md-2" method="POST">
+                    @csrf
+                    @method('PUT')
+                    @php
+                        // Get the available quantity for the item
+                        foreach ($products as $product) {
+                          if($product->id == $item['item_id'])
+                          {
+                            $availableQuantity = $product->quantity;
+                          }
+                        }
+                        $cartQuantity = $item['quantity'];
+                        $cartQuantity = $cartQuantity > $availableQuantity ? $availableQuantity : $cartQuantity;
+                    @endphp
+                    <input type="hidden" name="availableQuantity" value="{{ $availableQuantity }}">
+                    <input type="hidden" name="cartQuantity" value="{{ $cartQuantity }}">
+                    <button type="submit" class="bg-gray-100 text-gray-700 h-8 w-8 border rounded-l focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 cursor-pointer duration-150 hover:text-blue-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                    </button>
+                </form>
               </div>
               <div class="flex items-center space-x-4">
                 <p class="text-sm">{{ $item['price'] }} DH</p>

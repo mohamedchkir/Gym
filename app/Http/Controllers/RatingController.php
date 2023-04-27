@@ -13,7 +13,7 @@ class RatingController extends Controller
     public function store(Request $request)
     {
         //check if user has permission 'create comment'
-            if(auth()->user()->hasPermissionTo('create comments')){
+            // if(auth()->user()->hasPermissionTo('create comments')){
 
         // check if user id logged in
         if (Auth::check()) {
@@ -29,16 +29,16 @@ class RatingController extends Controller
         } else {
             return 'not logged in';
         }
-    }
-    else{
-        abort(403, 'Unauthorized action.');
-    }
+    // }
+    // else{
+    //     abort(403, 'Unauthorized action.');
+    // }
 }
 
     public function showRating($productId)
     {
         // check if user has permission 'view comment'
-        if (auth()->user()->hasPermissionTo('view Comments')) {
+        // if (auth()->user()->hasPermissionTo('view Comments')) {
 
         $comments = Product::with('ratings.user')->findOrFail($productId);
         $averageRating = $comments->averageRating;
@@ -60,7 +60,7 @@ class RatingController extends Controller
             'average_rating' => $averageRating,
             'latest_comments' => $latestCommentsData,
         ]);
-    }
+    // }
 }
 
     public function adminComments(){

@@ -17,6 +17,7 @@ class CartController extends Controller
         if (auth()->user()->hasPermissionTo('view cart')) {
 
             $cart = session()->get('cart');
+            $products = Product::all();
             // If the cart does not exist, create an empty cart
         $cart = session()->get('cart');
         if (!$cart) {
@@ -24,7 +25,9 @@ class CartController extends Controller
 
             ];
         }
-        return view('cart.cart')->with('cart', $cart);
+        // return view('cart.cart')->with('cart', $cart);
+
+        return view('cart.cart', compact('cart', 'products'));
 
         }else{
 
