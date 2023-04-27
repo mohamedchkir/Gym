@@ -83,7 +83,12 @@
        <li class="flex items-center">
            @if (Route::has('login'))
            @auth
-        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-400 hover:font-bold hover:text-red-600 cursor-pointer">Dashboard</a>
+                   @if(in_array('admin', Auth::user()->getRoleNames()->toArray()))
+                       <a href="{{ url('/dashboard') }}" class="text-sm text-gray-400 hover:font-bold hover:text-red-600 cursor-pointer">Dashboard</a>
+                   @else
+                       <a href="{{ route('store') }}" class="text-sm text-gray-400 hover:font-bold hover:text-red-600 cursor-pointer">Store</a>
+                   @endif
+
        </li>
        <!-- Login -->
        <li class="flex items-center">

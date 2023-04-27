@@ -47,7 +47,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
 
         // Comments Permissions
-        $viewComments = Permission::create(['name' => 'create Comments']);
+        $viewComments = Permission::create(['name' => 'view Comments']);
         $createComments = Permission::create(['name' => 'create Comments']);
         $editComments = Permission::create(['name' => 'edit Comments']);
         $deleteComments = Permission::create(['name' => 'delete Comments']);

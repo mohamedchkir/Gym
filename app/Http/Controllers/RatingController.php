@@ -38,7 +38,7 @@ class RatingController extends Controller
     public function showRating($productId)
     {
         // check if user has permission 'view comment'
-        if (auth()->user()->hasPermissionTo('view comments')) {
+        if (auth()->user()->hasPermissionTo('view Comments')) {
 
         $comments = Product::with('ratings.user')->findOrFail($productId);
         $averageRating = $comments->averageRating;
