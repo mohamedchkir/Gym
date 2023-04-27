@@ -35,9 +35,9 @@
 
 
         <h1 class="mb-10 text-center text-2xl font-bold"> Cart Items</h1>
-        @foreach(session('cart') as $id => $item)
-    <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
-      <div class="rounded-lg md:w-2/3">
+        <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+            <div class="rounded-lg md:w-2/3">
+                @foreach(session('cart') as $id => $item)
         <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
           <img src="{{ asset('img/' . $item['image']) }}"  alt="product-image" class="w-full rounded-lg sm:w-40" />
           <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">

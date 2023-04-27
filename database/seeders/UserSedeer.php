@@ -22,13 +22,22 @@ class UserSedeer extends Seeder
         $user->save();
         $user->assignRole('admin');
 
-        // create coach using factory
-        \App\Models\User::factory(2)->create()->each(function ($user) {
-            $user->assignRole('coach');
-        });
+        // create coach whitout using factory
+        $coach = new \App\Models\User();
+        $coach->name = 'coach';
+        $coach->email = 'coach@mail.com';
+        $coach->password = bcrypt('password');
+        $coach->save();
+        $coach->assignRole('coach');
 
-        \App\Models\User::factory(10)->create()->each(function ($user) {
-            $user->assignRole('user');
-        });
+
+        // create user whitout using factory
+        $user = new \App\Models\User();
+        $user->name = 'user';
+        $user->email = 'user@mail.com';
+        $user->password = bcrypt('password');
+        $user->save();
+        $user->assignRole('user');
+
     }
 }
