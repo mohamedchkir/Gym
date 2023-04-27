@@ -71,7 +71,7 @@
                         </div>
                     </th>
                     <td class="px-6 py-4">
-                        {{$admin->phone}}
+                        {{$admin->phone ?? 'no phone'}}
                     </td>
                     <td class="px-6 py-4">
                         {{$admin->created_at->diffForHumans()}}

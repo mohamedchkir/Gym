@@ -186,9 +186,10 @@ class ProductController extends Controller
 
     // display product info in cart
         public function cart($id){
-            $products = Product::find($id);
-            // dd();
-            return view('products.cart',compact('products'));
+
+            $product = Product::findOrFail($id);
+            // dd($product);
+            return view('products.cart',compact('product'));
         }
 
 

@@ -19,6 +19,7 @@ class UserSedeer extends Seeder
         $user->name = 'admin';
         $user->email = 'admin@mail.com';
         $user->password = bcrypt('password');
+        $user->phone='0627163549';
         $user->save();
         $user->assignRole('admin');
 
@@ -27,6 +28,7 @@ class UserSedeer extends Seeder
         $coach->name = 'coach';
         $coach->email = 'coach@mail.com';
         $coach->password = bcrypt('password');
+        $user->phone='0689627394';
         $coach->save();
         $coach->assignRole('coach');
 
@@ -36,6 +38,7 @@ class UserSedeer extends Seeder
         $user->name = 'user';
         $user->email = 'user@mail.com';
         $user->password = bcrypt('password');
+        $user->phone='0610293623';
         $user->save();
         $user->assignRole('user');
 

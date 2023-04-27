@@ -95,7 +95,7 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // Assign Permissions to Roles
         $adminRole->syncPermissions(Permission::all());
-        $coachRole->syncPermissions([$viewCoachs , $deleteCoachs , $editCoachs, $viewProgramme ,$createProgramme , $editProgramme ,$deleteProgramme,$viewcart, $addtocart, $deletefromcart, $updatecart]);
+        $coachRole->syncPermissions([$viewCoachs , $deleteCoachs , $editCoachs, $viewProgramme ,$createProgramme , $editProgramme ,$deleteProgramme,$viewcart, $addtocart, $deletefromcart, $updatecart,$viewComments , $createComments , $editComments]);
         $userRole->syncPermissions([$viewCoachs , $viewProgramme, $viewComments , $createComments , $editComments , $deleteComments , $viewProduct, $makepayements, $viewcart, $addtocart, $deletefromcart, $updatecart]);
     }
 }

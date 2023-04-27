@@ -28,7 +28,7 @@
             @foreach ($products as $product )
             <div class="col-span-1 flex flex-col justify-between p-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="./cart/{{$product->id}}" class="flex justify-center">
-                    <img class="rounded-t-lg h-60"  src="{{$product->image}}" alt="product image" />
+                    <img class="rounded-t-lg h-60"  src="{{asset($product->image)}}" alt="product image" />
                 </a>
                 <div class="px-5 pb-5 flex flex-col justify-between">
                     <div>

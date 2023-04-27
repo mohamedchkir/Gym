@@ -65,8 +65,8 @@ class RatingController extends Controller
 
     public function adminComments(){
 
-        // check if user has permission 'view comment'
-        if (auth()->user()->hasPermissionTo('view comments')) {
+        // // check if user has permission 'view comment'
+        // if (auth()->user()->hasPermissionTo('view comments')) {
 
         // get all comments with user and store
         $comments = Product::with('ratings.user')->get();
@@ -90,16 +90,17 @@ class RatingController extends Controller
         // dd($commentsData);
         return view('comments.comment', ['commentsData' => $commentsData]);
 
-    }
-    else{
-        abort(403, 'Unauthorized action.');
-    }
+    // }
+    // else{
+    //     abort(403, 'Unauthorized action.');
+    // }
 }
 
     public function deleteComment($id)
     {
+        // dd(auth()->user()->getAllPermissions());
         // check if user has permission 'delete comment'
-        if (auth()->user()->hasPermissionTo('delete comments')) {
+        if (auth()->user()->hasPermissionTo('delete Comments')) {
 
         $rating = Rating::find($id);
 
