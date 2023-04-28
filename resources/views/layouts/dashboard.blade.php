@@ -65,7 +65,7 @@
                                 aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span class="sr-only">Open user menu</span>
                                 <img class="w-8 h-8 rounded-full"
-                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                                    src="{{asset('assets/images/users/'.Auth::user()->image)}}"
                                     alt="user photo">
                             </button>
                         </div>
@@ -160,16 +160,16 @@
                     </button>
                     <ul id="dropdown-crud" class="space-y-2 py-2 //here//">
                         <li>
+                            <a href="/users"
+                                class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Users</a>
+                        </li>
+                        <li>
                             <a href="/admins"
                                 class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Admins</a>
                         </li>
                         <li>
                             <a href="/coaches"
                                 class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Coachs</a>
-                        </li>
-                        <li>
-                            <a href="/users"
-                                class="text-base text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700 ">Users</a>
                         </li>
                     </ul>
                 </li>
