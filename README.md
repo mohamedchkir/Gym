@@ -52,7 +52,7 @@ php artisan serve
 
 ## Authors
 
-- [@ME](https://www.github.com/octokatherine)
+- [@ME](https://github.com/mohamedchkir)
 
 
 ## Demo
