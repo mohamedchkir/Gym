@@ -40,6 +40,8 @@ class StatistqueController extends Controller
         $comments_count = Rating::count();
 
 
+
+
         // Get the total number of users
         $usersCount = User::count();
 
